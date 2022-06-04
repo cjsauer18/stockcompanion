@@ -6,6 +6,6 @@ git clone
 
 
 
-To push from a local prepose
+To push from a local repos
 git push -u origin master
 
