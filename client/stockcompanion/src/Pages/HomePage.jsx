@@ -1,18 +1,21 @@
 import React, { Component } from "react";
 
 //import ApexChart from "../Chart/ApexChart.jsx";
-//import ApexChart from '../Chart/apexcharts';
+import Apps from "./new_chart";
 
 class HomePage extends Component {
-	state = {};
+  state = {};
 
-	render() {
-		return (
-			<div>
-				<img src={require("./demochart.jpeg")} alt="demochart" height="500px" />
-			</div>
-		);
-	}
+  render() {
+    return (
+      //	<div>
+      //			<img src={require("./demochart.jpeg")} alt="demochart" height="500px" />
+      //		</div>
+      <div>
+        <Apps />
+      </div>
+    );
+  }
 }
 
 export default HomePage;
