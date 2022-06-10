@@ -1,18 +1,30 @@
 .topbar {
+  position: fixed;
+  width: 100%;
+  padding-top: 40px;
+  background-color: blue;
+}
+
+.topbar a {
+  position: relative;
+  left: 50%;
 }
 
 .sidebar {
   height: 100%;
-  width: 0;
+  width: 75px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
   padding-top: 60px;
-  background-color: blue;
+  background-color: white;
 }
 
 .sidebar li {
   padding: 8px 8px 8px 32px;
   display: block;
+}
+
+.nav {
 }

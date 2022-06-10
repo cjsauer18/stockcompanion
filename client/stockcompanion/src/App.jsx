@@ -11,13 +11,15 @@ import Nav from "./Components/Nav.jsx";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Nav />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/WatchListPage" element={<WatchListPage />} />
-        </Routes>
-      </BrowserRouter>
+      <div className="main-container">
+        <BrowserRouter>
+          <Nav />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/WatchListPage" element={<WatchListPage />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }
