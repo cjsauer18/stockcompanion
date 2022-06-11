@@ -12,8 +12,16 @@ const Apps = () => {
   };
 
   useEffect(() => {
-    getData();
+    fetch("/members")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data); //sets the state with the data
+        console.log(data);
+      });
   }, []);
+
+  //   getData();
+  // }, []);
 
   return <div className="Apps">{chartsToDisplay}</div>;
 };

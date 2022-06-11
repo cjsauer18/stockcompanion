@@ -1,5 +1,5 @@
 import "./styles.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import WatchListPage from "./Pages/WatchListPage";
 import HomePage from "./Pages/HomePage";
 import { BrowserRouter } from "react-router-dom";
