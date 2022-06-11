@@ -7,6 +7,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 // import your route components too
 
+function toggleActive() {}
+
+//if the button is active, then we should have the button region be lit up
 function Nav() {
   return (
     <div className="nav">
@@ -15,7 +18,7 @@ function Nav() {
       </div>
       <div className="sidebar">
         <li>
-          <Link to="/">
+          <Link to="/" onClick={toggleActive()}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
