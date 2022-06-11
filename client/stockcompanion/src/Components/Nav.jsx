@@ -1,5 +1,5 @@
 import "../styles.css";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Nav.css";
 import Button from "react-bootstrap/Button";
@@ -7,18 +7,32 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 // import your route components too
 
-function toggleActive() {}
-
 //if the button is active, then we should have the button region be lit up
+
 function Nav() {
+  const [active, setActive] = useState(["active-link", "non-active-link"]);
+  //if the current page is rendering this component, chagne the classname.
+
+  function toggleClass(buttonCount) {
+    if (buttonCount == 2) {
+      if (active[1] !== "active-link") {
+        setActive(["non-active-link", "active-link"]);
+      }
+    } else if (buttonCount == 1) {
+      if (active[0] !== "active-link") {
+        setActive(["active-link", "non-active-link"]);
+      }
+    }
+  }
+
   return (
     <div className="nav">
       <div className="topbar">
         <a href="#">Alerts</a>
       </div>
       <div className="sidebar">
-        <li>
-          <Link to="/" onClick={toggleActive()}>
+        <li className={active[0]}>
+          <Link to="/" onClick={() => toggleClass(1)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -31,8 +45,8 @@ function Nav() {
             </svg>
           </Link>
         </li>
-        <li>
-          <Link to="WatchListPage">
+        <li className={active[1]}>
+          <Link to="WatchListPage" onClick={() => toggleClass(2)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"

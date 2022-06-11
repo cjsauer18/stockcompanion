@@ -14,17 +14,21 @@
   height: 100%;
   width: 75px;
   position: fixed;
+
   z-index: 1;
-  top: 0;
   left: 0;
   padding-top: 60px;
   background-color: white;
 }
 
 .sidebar li {
-  padding: 8px 8px 8px 32px;
+  position: relative;
+  top: 200px;
+  padding: 8px 8px 8px 28px;
   display: block;
 }
 
-.nav {
+.active-link {
+  transition: 0.5s;
+  background-color: gray;
 }
