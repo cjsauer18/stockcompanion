@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { LoginContext } from "../Contexts/LoginContext";
+import axios from "axios";
+
+const axios_ = axios.create({
+  baseURL: "http://localhost:5000",
+  headers: { "Content-Type": "application/json" },
+});
 
 function StockChart(props) {
+  const { chartData, setChartData } = useContext(LoginContext);
   const [data, setData] = useState([{}]);
-
   useEffect(() => {
-    fetch("/members")
-      .then((res) => {
-        //  console.log(res);
-        return res.json();
-      })
-      .then((data) => {
-        setData(data); //sets the state with the data
-        console.log(data);
-      });
+    axios_.get("http://localhost:5000/members").then((res) => {
+      //  console.log(res);
+      setChartData(res.data);
+      console.log(res.data);
+    });
   }, []);
-  console.log("asdfadsfsdf");
-  return <div></div>;
+
+  return <div>{console.log("CONTEXT", chartData)}</div>;
 }
 
 export default StockChart;
