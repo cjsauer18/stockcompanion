@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 //import ApexChart from "../Chart/ApexChart.jsx";
-//import Apps from "./new_chart";
+import Apps from "./new_chart";
 
 class HomePage extends Component {
   state = {};
@@ -21,5 +21,12 @@ class HomePage extends Component {
     );
   }
 }
+
+//<div>
+//<Apps />
+//</div>
+//);
+//}
+//}
 
 export default HomePage;
