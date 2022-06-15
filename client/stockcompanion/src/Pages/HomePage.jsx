@@ -2,16 +2,17 @@
 //import Apps from "./new_chart";
 
 import React, { useContext } from "react";
-import StockChart from "./StockChart";
 import { LoginContext } from "../Contexts/LoginContext";
-import CandlestickChart from "../views/financial charts/Candlestick Chart";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./HomePage.css";
+import ApexChart from "../Chart/ApexChart";
 
 function HomePage(props) {
   const { chartData } = useContext(LoginContext);
   return (
-    <div>
-      {/* <StockChart /> */}
-      <CandlestickChart />
+    <div className="chart">
+      <ApexChart />
       {console.log("heynow")}
     </div>
   );

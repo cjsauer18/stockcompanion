@@ -2,7 +2,7 @@
   position: fixed;
   width: 100%;
   padding-top: 40px;
-  background-color: blue;
+  background-color: rgb(180, 180, 204);
 }
 
 .topbar a {
