@@ -280,7 +280,8 @@ class ApexChart extends React.Component {
           options={this.state.options}
           series={this.state.series}
           type="candlestick"
-          height={350}
+          width={1800}
+          height={650}
         />
       </div>
     );

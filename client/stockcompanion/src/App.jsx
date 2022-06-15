@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import Nav from "./Components/Nav.jsx";
-import { LoginContext } from "./Contexts/LoginContext";
+import { StockContext } from "./Contexts/StockContext";
 // import your route components too
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <div className="main-container">
-        <LoginContext.Provider value={{ chartData, setChartData }}>
+        <StockContext.Provider value={{ chartData, setChartData }}>
           <BrowserRouter>
             <Nav />
             <Routes>
@@ -22,7 +22,7 @@ function App() {
               <Route path="/WatchListPage" element={<WatchListPage />} />
             </Routes>
           </BrowserRouter>
-        </LoginContext.Provider>
+        </StockContext.Provider>
       </div>
     </div>
   );

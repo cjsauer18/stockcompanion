@@ -1,19 +1,19 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./WatchListPage.css";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
-import DatatablePage from "./table.jsx";
+//import DatatablePage from "./table.jsx";
+import WatchList from "../Components/WatchList";
 
-class WatchListPage extends Component {
-	state = {};
+function WatchListPage() {
+  const [data, setData] = useState({});
 
-	render() {
-		return (
-			<div className="data">
-				<DatatablePage />
-			</div>
-		);
-	}
+  return (
+    <div>
+      <button></button>
+      <WatchList />
+    </div>
+  );
 }
 
 export default WatchListPage;
