@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-
+import "./WatchListPage.css";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.min.css";
 import DatatablePage from "./table.jsx";
 
 class WatchListPage extends Component {
@@ -7,7 +9,7 @@ class WatchListPage extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="data">
 				<DatatablePage />
 			</div>
 		);
