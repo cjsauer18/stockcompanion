@@ -6,18 +6,8 @@ app = Flask("__name__")
 CORS(app)
 
 
-
-yf.pdr_override() # <== that's all it takes :-)
-
-# download dataframe
-data = pdr.get_data_yahoo("SPY", start="2017-01-01", end="2017-04-30")
-
-print(data)
-
-
 #API route
 @app.route("/members",methods=["GET", "POST"])
-# @cross_origin()
 def members(): #json array
     return {"members": ["1","2","3"]}
 if __name__ == "__main__":
