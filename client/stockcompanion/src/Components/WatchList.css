@@ -1,0 +1,34 @@
+.watch-list-container {
+  margin-top: 10%;
+}
+
+.watch-list-item-unselected {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  list-style: none;
+  margin-left: 5%;
+  /* padding-top: 5px;
+  padding-bottom: 5px; */
+}
+
+.watch-list-item-selected {
+  width: 100%;
+  display: flex;
+  background-color: blue;
+  flex-direction: row;
+  justify-content: flex-start;
+  list-style: none;
+  margin-left: 5%;
+  /* padding-top: 5px;
+    padding-bottom: 5px; */
+}
+.watch-list-item li > div {
+  display: inline;
+  border: 1px solid black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}

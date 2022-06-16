@@ -1,0 +1,34 @@
+.topbar {
+  position: fixed;
+  width: 100%;
+  padding-top: 40px;
+  background-color: rgb(201, 196, 228);
+}
+
+.topbar a {
+  position: relative;
+  left: 50%;
+}
+
+.sidebar {
+  height: 100%;
+  width: 75px;
+  position: fixed;
+
+  z-index: 1;
+  left: 0;
+  padding-top: 60px;
+  background-color: rgb(201, 196, 228);
+}
+
+.sidebar li {
+  position: relative;
+  top: 200px;
+  padding: 8px 8px 8px 28px;
+  display: block;
+}
+
+.active-link {
+  transition: 0.5s;
+  background-color: gray;
+}
