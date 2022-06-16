@@ -258,7 +258,7 @@ class ApexChart extends React.Component {
           height: 350,
         },
         title: {
-          text: "CandleStick Chart",
+          text: "CandleStick Chart", //add context hooks for stock
           align: "left",
         },
         xaxis: {
@@ -280,8 +280,8 @@ class ApexChart extends React.Component {
           options={this.state.options}
           series={this.state.series}
           type="candlestick"
-          width={1800}
-          height={650}
+          width={1500}
+          height={850}
         />
       </div>
     );

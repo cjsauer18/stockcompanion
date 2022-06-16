@@ -1,5 +1,13 @@
 .chart {
+/*<<<<<<< HEAD
   display: block;
   margin-top: 5%;
   margin-left: 5%;
+=======
+  margin-top: 5%;
+  margin-left: 20%;
+>>>>>>> e7cd539a4f1c806870a960215ec81b795d7eedad
+*/
+margin-top: 5%;
+  margin-left: 20%;
 }
