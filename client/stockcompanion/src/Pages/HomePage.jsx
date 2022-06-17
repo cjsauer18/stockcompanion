@@ -7,13 +7,17 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./HomePage.css";
 import ApexChart from "../Chart/ApexChart";
+import Search from "../Components/Search";
 
 function HomePage(props) {
   const { chartData } = useContext(StockContext);
   return (
-    <div className="chart">
-      <ApexChart />
-      {console.log("heynow")}
+    <div className="searchstock">
+      <Search />
+      <div className="chart">
+        <ApexChart />
+        {console.log("heynow")}
+      </div>
     </div>
   );
 }

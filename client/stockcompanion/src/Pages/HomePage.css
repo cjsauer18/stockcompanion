@@ -8,6 +8,14 @@
   margin-left: 20%;
 >>>>>>> e7cd539a4f1c806870a960215ec81b795d7eedad
 */
-margin-top: 5%;
-  margin-left: 20%;
+margin-top: 2%;
+margin-left: 0.05%;
+margin-right: 15%;
 }
+
+.searchstock {
+    margin-left: 5%;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 5%;
+  }
