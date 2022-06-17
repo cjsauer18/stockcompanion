@@ -3,8 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Container, Row, Col } from "react-bootstrap";
 
 function Search(props) {
-  this.state = {};
-
   return (
     <div>
       <Form
@@ -13,8 +11,8 @@ function Search(props) {
       // }}
       >
         <Form.Group controlId="stock-search">
-          <Form.Label>Search NYSE</Form.Label>
-          <Form.Control type="stock-search" placeholder="TSLA" />
+          <Form.Label>Search Any Stock from NYSE</Form.Label>
+          <Form.Control type="stock-search" placeholder="ENTER STOCK TICKER" />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
       </Form>

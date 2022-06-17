@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 //import ApexChart from "../Chart/ApexChart.jsx";
 //import Apps from "./new_chart";
+import Search from "../Components/Search";
+import "./HomePage.css";
 
 class HomePage extends Component {
   state = {};
@@ -9,6 +11,8 @@ class HomePage extends Component {
   render() {
     return (
       <div>
+        <div className="searchstock">
+      <Search />
         <div className="chart-container">
           <img
             src={require("./demochart.jpeg")}
@@ -16,6 +20,7 @@ class HomePage extends Component {
             height="500px"
           />
           {/* <Apps /> */}
+        </div>
         </div>
       </div>
     );
