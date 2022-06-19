@@ -11,8 +11,8 @@ function Search(props) {
       // }}
       >
         <Form.Group controlId="stock-search">
-          <Form.Label>Search NYSE</Form.Label>
-          <Form.Control type="stock-search" placeholder="TSLA" />
+          <Form.Label>Search Any Stock from NYSE</Form.Label>
+          <Form.Control type="stock-search" placeholder="ENTER STOCK TICKER" />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
       </Form>
