@@ -12,6 +12,7 @@ function WatchList(props) {
   }
   return (
     <div className="watch-list-container">
+      <h1>Watchlist-Placeholder-Name</h1>
       <WatchListItem toggleOn="watch-list-item-unselected" />
       <WatchListItem toggleOn="watch-list-item-unselected" />
       <WatchListItem toggleOn="watch-list-item-unselected" />

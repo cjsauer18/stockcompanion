@@ -1,22 +1,22 @@
-.chart {
-/*<<<<<<< HEAD
-  display: block;
+.home-page {
+  align-items: center;
+  margin: auto;
+  height: 100vh;
+  background-color: rgb(45, 45, 62);
+}
+
+/* rgb(21, 19, 55); <-- chart settings*/
+
+.chart-container {
+  z-index: 1;
   margin-top: 5%;
-  margin-left: 5%;
-=======
-  margin-top: 5%;
-  margin-left: 20%;
->>>>>>> e7cd539a4f1c806870a960215ec81b795d7eedad
-*/
-margin-top: 2%;
-margin-left: 0.05%;
-margin-right: 15%;
+  color: blue;
 }
 
 .searchstock {
-    margin-left: 5%;
-    margin-right: 5%;
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 0.1%;
-  }
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 0.1%;
+}

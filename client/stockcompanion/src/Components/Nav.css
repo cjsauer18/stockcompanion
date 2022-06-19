@@ -1,34 +1,47 @@
 .topbar {
-  position: fixed;
+  position: relative;
   width: 100%;
-  padding-top: 40px;
-  background-color: rgb(201, 196, 228);
+  padding-bottom: 25px;
+  background-color: rgb(41, 40, 57);
 }
+/* rgb(21, 19, 55); Chart settings*/
 
-.topbar a {
+.alert-btn {
+  border: none;
   position: relative;
   left: 50%;
+  background-color: rgb(41, 40, 57);
+}
+.alert-btn :hover {
+  transition: 0.5s;
+  background-color: rgb(48, 47, 65);
 }
 
 .sidebar {
   height: 100%;
   width: 75px;
   position: fixed;
-
   z-index: 1;
   left: 0;
   padding-top: 60px;
-  background-color: rgb(201, 196, 228);
+  background-color: rgb(41, 40, 57);
 }
 
 .sidebar li {
   position: relative;
   top: 200px;
-  padding: 8px 8px 8px 28px;
+  padding: 16px 8px 16px 23px;
   display: block;
 }
 
 .active-link {
   transition: 0.5s;
+  border: 5px;
+  border-color: rgb(255, 255, 255);
   background-color: gray;
+}
+
+.non-active-link:hover {
+  color: white;
+  transition: 0.5s;
 }

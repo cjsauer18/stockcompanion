@@ -7,7 +7,7 @@ import { StockContext } from "../Contexts/StockContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./HomePage.css";
 import ApexChart from "../Chart/ApexChart";
-import SearchBar from "../Components/Searchnew";
+import SearchBar from "../Components/SearchBar";
 import stockdata from "./SearchData";
 
 function HomePage(props) {
@@ -15,11 +15,10 @@ function HomePage(props) {
   return (
     //  <div className="searchstock">
     // <SearchBar />
-    <div className="searchstock">
+    <div className="home-page">
       <SearchBar placeholder="Enter Stock Ticker" data={stockdata} />
-      <div className="chart">
+      <div className="chart-container">
         <ApexChart />
-        {console.log("heynow")}
       </div>
     </div>
   );

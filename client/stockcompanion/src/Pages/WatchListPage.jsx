@@ -9,7 +9,7 @@ class WatchListPage extends Component {
 
   render() {
     return (
-      <div className="data">
+      <div className="watchlist-page">
         <WatchList />
       </div>
     );

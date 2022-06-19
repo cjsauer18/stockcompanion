@@ -1,4 +1,4 @@
-.data{
-    margin-top: 3.5%;
-    margin-left: 5%;
+.watchlist-page {
+  height: 100vh;
+  background-color: rgb(41, 40, 57);
 }
