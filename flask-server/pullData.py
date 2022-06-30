@@ -1,13 +1,18 @@
 from pandas_datareader import data as pdr
 import yfinance as yf
 
-watchList = []
+
+yf.pdr_override() # pandas utility (dataframe) override for array formatting
 
 
-#client side query shall recieve:
-#ticker = get_ticker()
-#start="2017-01-01", end="2017-04-30"
-upperbound, lowerbound = 0,0
+#ticker : string
+#start : string <YYYY-MM-DD>
+#end : string <YYYY-MM-DD>
+
+def requestData(ticker, start, end):
+    data = pdr.get_data_yahoo(str(ticker), start="2017-01-01", end="2017-04-30")
+    print(data)
+
 
 #upon initial stock call: stock ticker, standard lower and upperbounds
 #upon refresh .. lower and upperbounds.. and every second with no refresh... the day, return the very latest columns 
@@ -15,19 +20,13 @@ upperbound, lowerbound = 0,0
 #send back the data frame requested
 
 
-
-yf.pdr_override() # <== that's all it takes :-)
-
 # download dataframe
 
 
 
 
-data = pdr.get_data_yahoo("SPY", start="2017-01-01", end="2017-04-30")
 
 
-print(data.read())
-print(data)
 
 
 

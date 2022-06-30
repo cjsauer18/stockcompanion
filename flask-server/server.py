@@ -1,25 +1,25 @@
 from flask import Flask, make_response, request, jsonify
 from flask_cors import CORS, cross_origin
-
+import pullData
 
 app = Flask("__name__")
 CORS(app)
 
 
 
-yf.pdr_override() # <== that's all it takes :-)
-
-# download dataframe
-data = pdr.get_data_yahoo("SPY", start="2017-01-01", end="2017-04-30")
-
-print(data)
+#@app.route('/<end point>', defaults={'<variable name>' : '<default value>'})
 
 
 #API route
-@app.route("/members",methods=["GET", "POST"])
+@app.route("/members", methods=["GET", "POST"])
 # @cross_origin()
 def members(): #json array
+    args = request.args
+    ticker = args.get("ticker")
+    print("[DEBUG] ",ticker)
+    pullData.requestData(ticker)
     return {"members": ["1","2","3"]}
+
 if __name__ == "__main__":
     app.run(debug = True)
 
