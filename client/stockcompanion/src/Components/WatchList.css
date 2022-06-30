@@ -1,9 +1,10 @@
 .watch-list-container {
   position: relative;
-  margin-left: 15%;
+  margin-left: 13%;
   display: block;
   border-left: 25%;
-  background-color: rgb(135, 135, 135);
+  margin-top: 0.1%;
+  background-color: rgb(204, 201, 212);
   width: 75%;
 }
 

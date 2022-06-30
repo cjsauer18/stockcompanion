@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   padding-bottom: 25px;
-  background-color: rgb(41, 40, 57);
+  background-color: rgb(147, 141, 236);
 }
 /* rgb(21, 19, 55); Chart settings*/
 
@@ -10,7 +10,7 @@
   border: none;
   position: relative;
   left: 50%;
-  background-color: rgb(41, 40, 57);
+  background-color: rgb(161, 159, 189);
 }
 .alert-btn :hover {
   transition: 0.5s;
@@ -24,7 +24,7 @@
   z-index: 1;
   left: 0;
   padding-top: 60px;
-  background-color: rgb(41, 40, 57);
+  background-color: rgb(147, 141, 236);
 }
 
 .sidebar li {

@@ -1,7 +1,7 @@
 .home-page {
   align-items: center;
   margin: auto;
-  height: 100vh;
+  height: 120vh;
   background-color: rgb(45, 45, 62);
 }
 
@@ -10,9 +10,7 @@
 .chart-container {
   z-index: 1;
   margin-top: 5%;
-  margin-left: 5%;
-  display: block;
-  color: blue;
+  color: rgb(71, 71, 122);
 }
 
 .searchstock {
@@ -21,4 +19,5 @@
   padding: 15px;
   border-radius: 10px;
   margin-top: 0.1%;
+  margin-bottom: 15%;
 }
