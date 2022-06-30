@@ -10,6 +10,8 @@
 .chart-container {
   z-index: 1;
   margin-top: 5%;
+  margin-left: 5%;
+  display: block;
   color: blue;
 }
 

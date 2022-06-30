@@ -277,11 +277,11 @@ function ApexChart() {
         options={data.options}
         series={data.series}
         type="candlestick"
-        width={1500}
-        height={850}
+        width={1000}
+        height={450}
       />
     </div>
   );
 }
-
+//got to make this scale relative
 export default ApexChart;

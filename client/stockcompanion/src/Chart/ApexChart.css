@@ -1,9 +1,7 @@
 .chart {
-  display: block;
+  display: inline-block;
   align-items: center;
   background-color: rgb(21, 19, 55);
-  width: 80%;
-  margin-right: auto;
-  margin-left: auto;
+  margin-left: 10%;
   text-align: center;
 }
