@@ -9,6 +9,7 @@ import "./HomePage.css";
 import ApexChart from "../Chart/ApexChart";
 import SearchBar from "../Components/SearchBar";
 import stockdata from "./SearchData";
+import Footnote from "../Components/Footnote";
 
 function HomePage(props) {
   const { chartData } = useContext(StockContext);
@@ -20,6 +21,7 @@ function HomePage(props) {
       <div className="chart-container">
         <ApexChart />
       </div>
+      <Footnote />
     </div>
   );
 }
