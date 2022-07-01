@@ -8,6 +8,9 @@ function Footnote(props) {
       <div className="footnote-test">
         <h1>Footnotes:</h1>
         <input placeholder="Enter footnoes here" />
+        <div className="buttonfootnote"> 
+        <button> Post</button>
+        </div>
       </div>
     </div>
   );
