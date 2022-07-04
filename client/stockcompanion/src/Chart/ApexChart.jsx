@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ReactApexChart from "react-apexcharts";
+
 import "./ApexChart.css";
+
+//data has new Date object that looks like we can automatically format dates from unix time. No needto convert the unix time to another form.
 
 function ApexChart() {
   const [state, setState] = useState("");
+  const Stock = useContext(""); //this is a stock class
+  const candlestickdata = Stock.Data;
+
+  //the data format is set in the stock class, and is assigned to a stock container element in the apex chart component
   const data = {
     series: [
       {
@@ -11,6 +18,43 @@ function ApexChart() {
           {
             x: new Date(1538778600000),
             y: [6629.81, 6650.5, 6623.04, 6633.33],
+          },
+          {
+            x: new Date(1538780400000),
+            y: [6632.01, 6643.59, 6620, 6630.11],
+          },
+
+          {
+            x: new Date(1538780400000),
+            y: [6632.01, 6643.59, 6620, 6630.11],
+          },
+          {
+            x: new Date(1538780400000),
+            y: [6632.01, 6643.59, 6620, 6630.11],
+          },
+          {
+            x: new Date(1538780400000),
+            y: [6632.01, 6643.59, 6620, 6630.11],
+          },
+          {
+            x: new Date(1538780400000),
+            y: [6632.01, 6643.59, 6620, 6630.11],
+          },
+          {
+            x: new Date(1538780400000),
+            y: [6632.01, 6643.59, 6620, 6630.11],
+          },
+          {
+            x: new Date(1538780400000),
+            y: [6632.01, 6643.59, 6620, 6630.11],
+          },
+          {
+            x: new Date(1538780400000),
+            y: [6632.01, 6643.59, 6620, 6630.11],
+          },
+          {
+            x: new Date(1538780400000),
+            y: [6632.01, 6643.59, 6620, 6630.11],
           },
           {
             x: new Date(1538780400000),
@@ -257,7 +301,7 @@ function ApexChart() {
         height: 350,
       },
       title: {
-        text: "<Placeholder-Name>", //add context hooks for stock
+        text: `${Stock.name}`, //add context hooks for stock
         align: "left",
       },
       xaxis: {

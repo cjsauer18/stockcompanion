@@ -16,9 +16,11 @@ CORS(app)
 def members(): #json array
     args = request.args
     ticker = args.get("ticker")
+    start = args.get("start")
+    end = args.get("end")
     print("[DEBUG] ",ticker)
-    pullData.requestData(ticker)
-    return {"members": ["1","2","3"]}
+    data = pullData.requestData(ticker, start, end)
+    return data
 
 if __name__ == "__main__":
     app.run(debug = True)

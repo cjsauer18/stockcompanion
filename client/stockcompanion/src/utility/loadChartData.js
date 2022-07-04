@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import { LoginContext } from "../Contexts/StockContext";
 import axios from "axios";
 
 const axios_ = axios.create({
@@ -7,18 +6,21 @@ const axios_ = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-function StockChart(props) {
-  const { chartData, setChartData } = useContext(LoginContext);
-  const [data, setData] = useState([{}]);
+function getData() {}
+
+//stock data is a javascript object
+function fetchData(stockData) {
+  let Data = {};
   useEffect(() => {
-    axios_.get("http://localhost:5000/members").then((res) => {
-      //  console.log(res);
-      setChartData(res.data);
+    const url = `http://localhost:5000/members?ticker=${stockData.name}&start=${stockData.start}&end=${stockData.end}`;
+    console.log("URL: ", url);
+    axios_.get(url).then((res) => {
+      // setChartData(res.data);
       console.log(res.data);
+      Data = res.data;
     });
   }, []);
-
-  return <div>{console.log("CONTEXT", chartData)}</div>;
+  return Data;
 }
 
-export default StockChart;
+function retreiveDataFromDatabase() {}

@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import WatchListItem from "./WatchListItem";
 import "./WatchList.css";
 
-function WatchList(props) {
+//fetch the data using reference to which stocks and what dates found in the watch list context
+//populate state storage with this data.
+function displayWatchList() {}
+
+const WatchList = (props) => {
   const [data, setData] = useState(""); //api call?
   const [active, setActive] = useState("watch-list-item-unselected");
   function toggleActive(toggle) {
@@ -19,7 +23,7 @@ function WatchList(props) {
       <WatchListItem toggleOn="watch-list-item-unselected" />
     </div>
   );
-}
+};
 
 export default WatchList;
 

@@ -4,16 +4,12 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import WatchList from "../Components/WatchList";
 
-class WatchListPage extends Component {
-  state = {};
-
-  render() {
-    return (
-      <div className="watchlist-page">
-        <WatchList />
-      </div>
-    );
-  }
-}
+const WatchListPage = () => {
+  return (
+    <div className="watchlist-page">
+      <WatchList />
+    </div>
+  );
+};
 
 export default WatchListPage;

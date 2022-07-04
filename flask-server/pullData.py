@@ -1,30 +1,47 @@
 from pandas_datareader import data as pdr
 import yfinance as yf
-
+import json
 
 yf.pdr_override() # pandas utility (dataframe) override for array formatting
 
+
+
+#Not that sophisicated, but should work for basic formatting
+def checkString(date_string):
+    try:
+        if "-" in date_string[0:4]:
+            return False
+        elif int(date_string[4:6]) > 12:
+            return False
+        elif int(date_string[7:9]) > 31:
+            return False
+        return True
+    except Exception as E:
+        print(E)
+        return False
 
 #ticker : string
 #start : string <YYYY-MM-DD>
 #end : string <YYYY-MM-DD>
 
 def requestData(ticker, start, end):
-    data = pdr.get_data_yahoo(str(ticker), start="2017-01-01", end="2017-04-30")
+    start, end = str(start), str(end)
+    if not checkString(start):
+        print("[ERROR]: String format is incorrect for start date:",start)
+    if not checkString(end):
+        print("[ERROR]: String format is incorrect for end date:",end)
+    
+    data = pdr.get_data_yahoo(str(ticker), start=start, end=end)
+    data = data.to_json()
     print(data)
+    return data
+
 
 
 #upon initial stock call: stock ticker, standard lower and upperbounds
 #upon refresh .. lower and upperbounds.. and every second with no refresh... the day, return the very latest columns 
 
 #send back the data frame requested
-
-
-# download dataframe
-
-
-
-
 
 
 

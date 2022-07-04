@@ -7,14 +7,19 @@ import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import Nav from "./Components/Nav.jsx";
 import { StockContext } from "./Contexts/StockContext";
+//import { WatchListContext } from "./Contexts/WatchListContext";
 // import your route components too
 
 function App() {
-  const [chartData, setChartData] = useState("");
+  const [stockData, setStockData] = useState("");
+  const [watchListData, setWatchListData] = useState("");
+
+  function componentDidMount() {} //set the stock context from data in the database
+
   return (
     <div className="App">
       <div className="main-container">
-        <StockContext.Provider value={{ chartData, setChartData }}>
+        <StockContext.Provider value={{ stockData, setStockData }}>
           <BrowserRouter>
             <Nav />
             <Routes>
