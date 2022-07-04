@@ -27,25 +27,58 @@ function Chart(props) {
 
   return (
     <div className="chart-container">
-      <h1>Interval</h1>
-      <button
-        onClick={() => handleIntervalChange(1)}
-        className="interval-select"
-      >
-        1m
-      </button>
-      <button className="interval-select">5m</button>
-      <button className="interval-select">30m</button>
-      <button className="interval-select">1hr</button>
-      <button className="interval-select">1wk</button>
-      <button className="interval-select">1m</button>
+      <div className="interval-container">
+        <h4>Interval</h4>
+        <button
+          onClick={() => handleIntervalChange(1)}
+          className="interval-select"
+        >
+          1m
+        </button>
+        <button
+          onClick={() => handleIntervalChange(5)}
+          className="interval-select"
+        >
+          5m
+        </button>
+        <button
+          onClick={() => handleIntervalChange(30)}
+          className="interval-select"
+        >
+          30m
+        </button>
+        <button
+          onClick={() => handleIntervalChange(60)}
+          className="interval-select"
+        >
+          1hr
+        </button>
+        <button
+          onClick={() => handleIntervalChange(10080)}
+          className="interval-select"
+        >
+          1wk
+        </button>
+      </div>
       <ApexChart />
-      <h1>Date Range</h1>
-      <button className="range-select">1d</button>
-      <button className="range-select">1w</button>
-      <button className="range-select">1m</button>
-      <button className="range-select">6m</button>
-      <button className="range-select">1yr</button>
+      <div className="range-container">
+        <h4>Date Range</h4>
+        <button onClick={() => handleRangeChange(1)} className="range-select">
+          1d
+        </button>
+        <button onClick={() => handleRangeChange(7)} className="range-select">
+          1w
+        </button>
+        <button onClick={() => handleRangeChange(30)} className="range-select">
+          1m
+        </button>
+        <button onClick={() => handleRangeChange(180)} className="range-select">
+          6m
+        </button>
+        <button onClick={() => handleRangeChange(360)} className="range-select">
+          1yr
+        </button>
+      </div>
     </div>
   );
 }

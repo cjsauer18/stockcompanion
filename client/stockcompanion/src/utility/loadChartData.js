@@ -14,7 +14,7 @@ function fetchData(stockData) {
   let Data = {};
 
   useEffect(() => {
-    const url = `http://localhost:5000/members?ticker=${stockData.name}&start=${stockData.startTime}&end=${stockData.endTime}`;
+    const url = `http://localhost:5000/members?ticker=${stockData.name}&start=${stockData.startTime}&end=${stockData.endTime}&interval=${stockData.interval}&range=${stockData.range}`;
     console.log("URL: ", url);
     axios_.get(url).then((res) => {
       // setChartData(res.data);
