@@ -7,6 +7,7 @@ import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import Nav from "./Components/Nav.jsx";
 import { StockContext } from "./Contexts/StockContext";
+import Chart from "./Chart/Chart";
 //import { WatchListContext } from "./Contexts/WatchListContext";
 // import your route components too
 

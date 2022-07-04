@@ -9,10 +9,12 @@ const axios_ = axios.create({
 function getData() {}
 
 //stock data is a javascript object
+//assuming this param is a stock object
 function fetchData(stockData) {
   let Data = {};
+
   useEffect(() => {
-    const url = `http://localhost:5000/members?ticker=${stockData.name}&start=${stockData.start}&end=${stockData.end}`;
+    const url = `http://localhost:5000/members?ticker=${stockData.name}&start=${stockData.startTime}&end=${stockData.endTime}`;
     console.log("URL: ", url);
     axios_.get(url).then((res) => {
       // setChartData(res.data);

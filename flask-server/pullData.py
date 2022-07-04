@@ -24,14 +24,14 @@ def checkString(date_string):
 #start : string <YYYY-MM-DD>
 #end : string <YYYY-MM-DD>
 
-def requestData(ticker, start, end):
+def requestData(ticker, start, end, interval, range):
     start, end = str(start), str(end)
     if not checkString(start):
         print("[ERROR]: String format is incorrect for start date:",start)
     if not checkString(end):
         print("[ERROR]: String format is incorrect for end date:",end)
     
-    data = pdr.get_data_yahoo(str(ticker), start=start, end=end)
+    data = pdr.get_data_yahoo(str(ticker), start=start, end=end, interval=interval, range=range)
     data = data.to_json()
     print(data)
     return data

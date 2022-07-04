@@ -4,15 +4,36 @@ import "./Chart.css";
 import { StockContext } from "../Contexts/StockContext";
 
 function Chart(props) {
-  const [stock, setStock] = useContext(StockContext);
+  const { stockData, setStockData } = useContext(StockContext);
   const [chartData, setChartData] = useState("");
-  const handleIntervalChange = () => {};
-  const handleRangeChange = () => {};
+
+  // setTimeout(){
+  //    data = fetchData()
+  //    let updatedStock = stock;
+  //     updatedStock.data = data;
+  //    setStock(updatedStock);
+  // }
+
+  const handleIntervalChange = (interval) => {
+    // let updatedStock = stock;
+    // if (interval == 1) {
+    ///  updatedStock.setInterval(interval);
+    //stock is updated with new interval
+    //fetchData(updatedStock);
+    //setStock(updatedStock);
+  };
+
+  const handleRangeChange = (range) => {};
 
   return (
     <div className="chart-container">
       <h1>Interval</h1>
-      <button className="interval-select">1m</button>
+      <button
+        onClick={() => handleIntervalChange(1)}
+        className="interval-select"
+      >
+        1m
+      </button>
       <button className="interval-select">5m</button>
       <button className="interval-select">30m</button>
       <button className="interval-select">1hr</button>

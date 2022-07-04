@@ -1,14 +1,15 @@
 import React, { useState, useContext } from "react";
 import ReactApexChart from "react-apexcharts";
 
+import { StockContext } from "../Contexts/StockContext";
 import "./ApexChart.css";
 
 //data has new Date object that looks like we can automatically format dates from unix time. No needto convert the unix time to another form.
 
 function ApexChart() {
   const [state, setState] = useState("");
-  const Stock = useContext(""); //this is a stock class
-  const candlestickdata = Stock.Data;
+  // const [stockData, setStockData] = useContext(StockContext); //this is a stock class
+  // const candlestickdata = stockData.Data;
 
   //the data format is set in the stock class, and is assigned to a stock container element in the apex chart component
   const data = {
@@ -301,7 +302,7 @@ function ApexChart() {
         height: 350,
       },
       title: {
-        text: `${Stock.name}`, //add context hooks for stock
+        text: "<placeholder>", //${stockData.name}`, add context hooks for stock
         align: "left",
       },
       xaxis: {
