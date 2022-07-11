@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import WatchList from "../Components/WatchList";
 
+//watchListData : [stock] array of stock objects
 const WatchListPage = () => {
   const [watchListData, setWatchListData] = useState("");
   return (

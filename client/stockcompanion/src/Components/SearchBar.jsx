@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./SearchBar.css";
+import { StockContext } from "../Contexts/StockContext";
+import Stock from "./stock.js";
+import { sleep } from "../utility/util.js";
 //import SearchIcon from "@material-ui/icons/Search";
 //import CloseIcon from "@material-ui/icons/Close";
 
 function SearchBar({ placeholder, data }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
+  const { stockData, setStockData } = useContext(StockContext);
+
+  const setStock = (ticker) => {
+    console.log("firing");
+    //if ticker exists
+    let stock = new Stock(ticker);
+    sleep(6000);
+    console.log(stock);
+    setStockData(stock);
+  };
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
@@ -38,16 +51,18 @@ function SearchBar({ placeholder, data }) {
         />
         <div className="searchIcon">
           {filteredData.length === 0 ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              fill="currentColor"
-              class="bi bi-search"
-              viewBox="0 0 16 16"
-            >
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-            </svg>
+            <button onClick={() => setStock(wordEntered)}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                fill="currentColor"
+                class="bi bi-search"
+                viewBox="0 0 16 16"
+              >
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+              </svg>
+            </button>
           ) : (
             <button onClick={() => clearInput()}>
               <svg

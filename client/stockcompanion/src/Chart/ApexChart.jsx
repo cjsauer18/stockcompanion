@@ -6,11 +6,39 @@ import "./ApexChart.css";
 
 //data has new Date object that looks like we can automatically format dates from unix time. No needto convert the unix time to another form.
 
-function ApexChart() {
+function ApexChart(props) {
   const [state, setState] = useState("");
+  setInterval(() => {
+    setState({ stock: props.Stock, data: props.Stock.data });
+  }, 20000);
   // const [stockData, setStockData] = useContext(StockContext); //this is a stock class
-  // const candlestickdata = stockData.Data;
 
+  console.log(props);
+  const myData = {
+    series: [
+      {
+        data: state.data,
+      },
+    ],
+    options: {
+      chart: {
+        type: "candlestick",
+        height: 350,
+      },
+      title: {
+        text: `${props.Stock.name}`, //${stockData.name}`, add context hooks for stock
+        align: "left",
+      },
+      xaxis: {
+        type: "datetime",
+      },
+      yaxis: {
+        tooltip: {
+          enabled: true,
+        },
+      },
+    },
+  };
   //the data format is set in the stock class, and is assigned to a stock container element in the apex chart component
   const data = {
     series: [
@@ -319,8 +347,8 @@ function ApexChart() {
   return (
     <div className="chart">
       <ReactApexChart
-        options={data.options}
-        series={data.series}
+        options={myData.options}
+        series={myData.series}
         type="candlestick"
         width={1000}
         height={450}

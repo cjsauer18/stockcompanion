@@ -1,7 +1,6 @@
 from flask import Flask, make_response, request, jsonify
 from flask_cors import CORS, cross_origin
 import pullData
-
 app = Flask("__name__")
 CORS(app)
 
@@ -18,8 +17,9 @@ def members(): #json array
     ticker = args.get("ticker")
     start = args.get("start")
     end = args.get("end")
-    print("[DEBUG] ",ticker)
-    data = pullData.requestData(ticker, start, end)
+    interval = args.get("interval")
+    range = args.get("range")
+    data = pullData.requestData(ticker, start, end, interval, range)
     return data
 
 if __name__ == "__main__":

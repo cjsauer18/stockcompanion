@@ -1,29 +1,66 @@
-import "../utility/loadChartData.js";
+import { fetchData, formatData } from "../utility/loadChartData.js";
 
 class Stock {
   constructor(ticker) {
+    // console.log("here");
     this.name = ticker;
-    this.endTime = Date.now(); //time elapsed since the unix os starting
-    this.startTime = this.endTime - 604800; //seven days, 1 week in second: Default range
-    this.data = getData(this.ticker, this.startTime, this.endTime);
+    this.endTime = Math.round(Date.now() / 1000, 0); //time is in UNIX time
+    this.startTime = this.endTime - 604800; //seven days, 1 week in seconds: Default start range
+    this.interval = 1;
+    this.range = 1;
+    this.data = [];
+    //this.refresh();
+
     //have a set timer inside this stock object?
   }
-  *getRange() {}
-  *getData() {
-    //calls fetch data with parameters
+  getRange() {}
+  refresh() {
+    // calls fetch data with parameters
+    setInterval(() => {
+      console.log("fetching data:");
+      let data = fetchData(this);
+      data.then((result) => {
+        data = formatData(result);
+        console.log("result:", data);
+        this.data = data;
+        // return data;
+      });
+      //this.data = data;
+    }, 20000);
   }
-  *setInterval(interval) {
+  // getData() {
+  //   return this.data;
+  // }
+  getData() {
+    console.log("fetching data:");
+    let data = fetchData(this);
+    data.then((result) => {
+      data = formatData(result);
+      //   console.log("result:", data);
+      this.data = data;
+    });
+  }
+
+  // setInterval(() => {
+  //   console.log(this.data);
+  // });
+
+  setInterval(interval) {
+    this.interval = interval;
+    this.getData();
     //handle query
     //call the fetchData()
+    //this.getData();
+  }
+  setRange(range) {
+    this.range = range;
     this.getData();
   }
-  *setRange(range) {}
   //change aorund so that this is in string format, and checked before assignemnt. Checking should happen in this setter method.
-  *setRange(first, second) {
+  setDateRange(first, second) {
     this.startTime = first;
     this.endTime = second;
   }
-  *collect() {
-    SetTimeout(() => {});
-  }
 }
+
+export default Stock;

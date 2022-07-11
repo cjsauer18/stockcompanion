@@ -2,10 +2,20 @@ import React, { useEffect, useState, useContext } from "react";
 import ApexChart from "./ApexChart";
 import "./Chart.css";
 import { StockContext } from "../Contexts/StockContext";
+import Stock from "../Components/stock";
 
 function Chart(props) {
+  const stock = new Stock("TSLA");
   const { stockData, setStockData } = useContext(StockContext);
-  const [chartData, setChartData] = useState("");
+  const [state, setState] = useState("");
+  setInterval(() => {
+    console.log("refreshing...");
+    stock.getData();
+  }, 10000);
+
+  //stock.getData();
+
+  //setChartData(stock);
 
   // setTimeout(){
   //    data = fetchData()
@@ -15,6 +25,7 @@ function Chart(props) {
   // }
 
   const handleIntervalChange = (interval) => {
+    // console.log(stockData);
     // let updatedStock = stock;
     // if (interval == 1) {
     ///  updatedStock.setInterval(interval);
@@ -22,7 +33,6 @@ function Chart(props) {
     //fetchData(updatedStock);
     //setStock(updatedStock);
   };
-
   const handleRangeChange = (range) => {};
 
   return (
@@ -60,7 +70,7 @@ function Chart(props) {
           1wk
         </button>
       </div>
-      <ApexChart />
+      <ApexChart Stock={stock} />
       <div className="range-container">
         <h4>Date Range</h4>
         <button onClick={() => handleRangeChange(1)} className="range-select">

@@ -1,6 +1,7 @@
 from pandas_datareader import data as pdr
 import yfinance as yf
 import json
+import datetime
 
 yf.pdr_override() # pandas utility (dataframe) override for array formatting
 
@@ -25,13 +26,21 @@ def checkString(date_string):
 #end : string <YYYY-MM-DD>
 
 def requestData(ticker, start, end, interval, range):
+    print("[DEBUG] ",ticker)
+
+    start = str(datetime.datetime.fromtimestamp(int(start))).split(" ")[0]
+    end = str(datetime.datetime.fromtimestamp(int(end))).split(" ")[0]
+    print("[DEBUG] Start Date:",start)
+    print("[DEBUG] Start Date:",end)
+
     start, end = str(start), str(end)
     if not checkString(start):
         print("[ERROR]: String format is incorrect for start date:",start)
     if not checkString(end):
         print("[ERROR]: String format is incorrect for end date:",end)
     
-    data = pdr.get_data_yahoo(str(ticker), start=start, end=end, interval=interval, range=range)
+    
+    data = pdr.get_data_yahoo(str(ticker), start=start, end=end, interval = "1h")#, interval=str(interval) + "d", range=range)
     data = data.to_json()
     print(data)
     return data
