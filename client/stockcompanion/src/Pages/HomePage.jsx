@@ -11,6 +11,7 @@ import SearchBar from "../Components/SearchBar";
 import stockdata from "./SearchData";
 import Footnote from "../Components/Footnote";
 import Chart from "../Chart/Chart";
+import AddWatchlist from "../Components/addWatchlist";
 //have a handleButton function that takes as input the start range for the graph.
 //it takes the stock obect and calls .setStart() which is set as the context again.
 
@@ -27,7 +28,10 @@ function HomePage(props) {
     <div className="home-page">
       <SearchBar placeholder="Enter Stock Ticker" data={stockdata} />
       <Chart />
+      <AddWatchlist />
       <Footnote />
+    
+    
     </div>
   );
 }
