@@ -16,6 +16,7 @@ class Stock {
   getRange() {}
   refresh() {
     // calls fetch data with parameters
+<<<<<<< HEAD
     // setInterval(() => {
     //   console.log("fetching data:");
     //   let data = fetchData(this);
@@ -27,15 +28,37 @@ class Stock {
     //   });
     //   //this.data = data;
     // }, 20000);
+=======
+    setInterval(() => {
+      console.log("fetching data:");
+      let data = fetchData(this);
+      data.then((result) => {
+        data = formatData(result);
+        console.log("result:", data);
+        this.data = data;
+        // return data;
+      });
+      //this.data = data;
+    }, 20000);
+>>>>>>> master
   }
   // getData() {
   //   return this.data;
   // }
   getData() {
+<<<<<<< HEAD
     let dataResponse = fetchData(this);
     dataResponse.then((result) => {
       var _data = formatData(result);
       this.data = _data;
+=======
+    console.log("fetching data:");
+    let data = fetchData(this);
+    data.then((result) => {
+      data = formatData(result);
+      //   console.log("result:", data);
+      this.data = data;
+>>>>>>> master
     });
   }
 

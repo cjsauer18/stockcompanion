@@ -1,10 +1,14 @@
+<<<<<<< HEAD
 @import url("https://fonts.googleapis.com/css2?family=Ruda:wght@400;500;600;700;800;900&display=swap");
 
+=======
+>>>>>>> master
 .site-wrap {
   height: 100vh;
   width: 100vh;
   background-color: black;
 }
+<<<<<<< HEAD
 
 body {
   font-family: "Ruda", sans-serif !important;
@@ -32,3 +36,5 @@ body {
   outline: none !important;
   box-shadow: none !important;
 }
+=======
+>>>>>>> master

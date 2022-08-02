@@ -1,5 +1,9 @@
 import React, { useState, useContext } from "react";
+<<<<<<< HEAD
 // import "./SearchBar.css";
+=======
+import "./SearchBar.css";
+>>>>>>> master
 import { StockContext } from "../Contexts/StockContext";
 import Stock from "./stock.js";
 import { sleep } from "../utility/util.js";

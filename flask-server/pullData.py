@@ -40,9 +40,15 @@ def requestData(ticker, start, end, interval, range):
         print("[ERROR]: String format is incorrect for end date:",end)
     
     
+<<<<<<< HEAD
     data = pdr.get_data_yahoo(str(ticker), interval = str(interval), period=range)#, interval=str(interval) + "d", range=range)
     data = data.to_json()
     # print(data)
+=======
+    data = pdr.get_data_yahoo(str(ticker), start=start, end=end, interval = "1h")#, interval=str(interval) + "d", range=range)
+    data = data.to_json()
+    print(data)
+>>>>>>> master
     return data
 
 
