@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import "./Notification.css";
 import NotificationTile from "./NotificationTile";
@@ -7,6 +7,8 @@ import { BiSearch } from "react-icons/bi";
 
 //I want to be notified when the price changes a set percentage point.
 //I want to be notificed when the volume changes after a set percentage point.
+
+//track price percentage change every 1 minute, 5 minute, 30 minute, 1 hour. Suite of buttons.
 
 function contains(obj, list) {
   var i;
@@ -26,6 +28,8 @@ function Notification(props) {
   const [state, setState] = useState([]);
   const [percentageValue, setPercentageValue] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [intervalButtonActive, setIntervalButtonActive] = useState([]);
+
   const handleSetNotification = (value, type, number) => {
     console.log(value, type);
     if (number === " " || number.length != 10) {
@@ -61,26 +65,49 @@ function Notification(props) {
     console.log(state);
   };
   const handlePercentChange = () => {};
-  // const intervals = [
-  //   {
-  //     name: "1 min",
-  //   },
-  //   {
-  //     name: "5 min",
-  //   },
-  //   {
-  //     name: "10 min",
-  //   },
-  //   {
-  //     name: "30 min",
-  //   },
-  //   {
-  //     name: "1 hr",
-  //   },
-  // ];
+  const handleIntervalButton = () => {};
+  const intervals = [
+    {
+      name: "1 min",
+    },
+    {
+      name: "5 min",
+    },
+    {
+      name: "10 min",
+    },
+    {
+      name: "30 min",
+    },
+    {
+      name: "1 hr",
+    },
+  ];
+
   return (
     <div>
       <div>
+        <Form className="interval-change-form">
+          {intervals.map((interval, i) => {
+            return (
+              <Button
+                onClick={() => handleIntervalButton(interval)}
+                className="interval-btn"
+              >
+                {interval.name}
+              </Button>
+            );
+          })}
+          <Button
+            className="set-notification"
+            onClick={() =>
+              handleSetNotification(percentageValue, "price", phoneNumber)
+            }
+          >
+            Set Notification
+          </Button>
+        </Form>
+
         <Form className="percentage-change-form">
           <Form.Control
             type="text"
@@ -97,6 +124,7 @@ function Notification(props) {
             onChange={(event) => setPhoneNumber(event.target.value)}
             className="alert-number-form-input"
           />
+
           <Button
             className="set-notification"
             onClick={() =>
@@ -125,6 +153,9 @@ function Notification(props) {
               <NotificationTile
                 title={notification.title}
                 description={notification.description}
+                value={notification.value}
+                interval={notification.interval}
+                active={notification.isActive}
                 // isActive={notification.isActive}
               />
               // <button></button> toggle active, maybe remove button here

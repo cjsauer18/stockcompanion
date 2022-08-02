@@ -4,7 +4,7 @@ import ApexChart from "../../Chart/ApexChart";
 import Default from "../../Components/Layout/Default";
 import Stock from "../../Components/stock";
 import Notification from "../../Components/Notifications/Notification";
-
+import Dashboard from "../../Components/Notifications/Dashboard";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -51,7 +51,8 @@ const Home = () => {
 
   const [changeInterval, setChangeInterval] = useState("1m");
   const [changeRange, setChangeRange] = useState("1d");
-
+  const [stockList, setStockList] = useState([]); //pass the parent setstate function (setStockList) down as a prop to the notification component
+  const [currentStock, setCurrentStock] = useState(""); //this is a simple string that will use to index the stockList like stockList[currentStock].
   const stock = new Stock("TSLA");
 
   const handleInterval = (interval) => {
@@ -77,6 +78,7 @@ const Home = () => {
       <Default>
         <div className="container my-4">
           <Form className="d-flex mb-5">
+            {/* SET SEARCH BAR SET STATE HERE */}
             <Form.Control
               type="search"
               placeholder="Enter Stock Ticker"
@@ -143,6 +145,7 @@ const Home = () => {
             </div>
           </div>
           <div className="row">
+            <Dashboard />
             <div className="col-md-12">
               <ApexChart
                 Stock={stock}
@@ -159,7 +162,12 @@ const Home = () => {
               Add to Watchlist
             </button>
             {/* <button className="btn btn-secondary">Set Notification</button> */}
-            <Notification />
+            <Notification
+              stock={stockList[currentStock]}
+              setChange={setStockLost}
+            />
+            {/* MAKESHIFT passing in the function to change the state of the parent component as notification settings are stored here BUT COULD BE STORED IN A SERVER AS DATA!!!!!!  */}
+            {/* removing and adding notifications for specific stocks are handled in the same component: <Notification/>  */}
           </div>
           <div className="mb-5">
             <h3 className="text-white">Footnotes</h3>
@@ -179,5 +187,8 @@ const Home = () => {
     </Fragment>
   );
 };
+
+//this should contain a state that has all our stock details.
+//-its set notifications and things
 
 export default Home;
