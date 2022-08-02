@@ -23,7 +23,7 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <li className={active[0]}>
-        <Link to="/home" onClick={() => toggleClass(1)}>
+        <Link to="/" onClick={() => toggleClass(1)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="30"

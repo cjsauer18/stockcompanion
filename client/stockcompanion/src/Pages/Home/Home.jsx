@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import ApexChart from "../../Chart/ApexChart";
 import Default from "../../Components/Layout/Default";
 import Stock from "../../Components/stock";
+import Notification from "../../Components/Notifications/Notification";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -68,6 +69,7 @@ const Home = () => {
 
   useEffect(() => {
     stock.getData();
+    console.log("hey");
   });
 
   return (
@@ -156,7 +158,8 @@ const Home = () => {
             >
               Add to Watchlist
             </button>
-            <button className="btn btn-secondary">Set Notification</button>
+            {/* <button className="btn btn-secondary">Set Notification</button> */}
+            <Notification />
           </div>
           <div className="mb-5">
             <h3 className="text-white">Footnotes</h3>
