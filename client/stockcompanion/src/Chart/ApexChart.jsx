@@ -351,7 +351,8 @@ function ApexChart(props) {
       setIsLoading(true);
       const endTime = Math.round(Date.now() / 1000, 0);
       const starTime = endTime - 300;
-      const URL = `http://localhost:5000/members?ticker=TSLA&start=${starTime}&end=${endTime}&interval=${interval}&range=${range}`;
+      const storedTicker = localStorage.getItem("ACTIVE_TICKER") || "TSLA";
+      const URL = `http://localhost:5000/members?ticker=${storedTicker}&start=${starTime}&end=${endTime}&interval=${interval}&range=${range}`;
       const responseParse = await fetch(URL);
 
       const _data = await responseParse.json();

@@ -47,6 +47,27 @@ def requestData(ticker, start, end, interval, range):
 
 
 
+def requestWatchListData(tickers, start, end, interval, range):
+    print("[DEBUG] ",tickers)
+
+    start = str(datetime.datetime.fromtimestamp(int(start))).split(" ")[0]
+    end = str(datetime.datetime.fromtimestamp(int(end))).split(" ")[0]
+    print("[DEBUG] Start Date:",start)
+    print("[DEBUG] Start Date:",end)
+
+    start, end = str(start), str(end)
+    if not checkString(start):
+        print("[ERROR]: String format is incorrect for start date:",start)
+    if not checkString(end):
+        print("[ERROR]: String format is incorrect for end date:",end)
+    
+    
+    data = pdr.get_data_yahoo(tickers, interval = str(interval), period=range)#, interval=str(interval) + "d", range=range)
+    data = data.to_json()
+    return data
+
+
+
 #upon initial stock call: stock ticker, standard lower and upperbounds
 #upon refresh .. lower and upperbounds.. and every second with no refresh... the day, return the very latest columns 
 

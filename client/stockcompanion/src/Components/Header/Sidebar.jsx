@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
 
 import "../Nav.css";
 
@@ -9,11 +8,11 @@ const Sidebar = () => {
   //if the current page is rendering this component, chagne the classname.
 
   function toggleClass(buttonCount) {
-    if (buttonCount == 2) {
+    if (buttonCount === 2) {
       if (active[1] !== "active-link") {
         setActive(["non-active-link", "active-link"]);
       }
-    } else if (buttonCount == 1) {
+    } else if (buttonCount === 1) {
       if (active[0] !== "active-link") {
         setActive(["active-link", "non-active-link"]);
       }

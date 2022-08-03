@@ -4,6 +4,8 @@ import pullData
 app = Flask("__name__")
 CORS(app)
 
+import requests
+import json
 
 
 #@app.route('/<end point>', defaults={'<variable name>' : '<default value>'})
@@ -21,6 +23,33 @@ def members(): #json array
     range = args.get("range")
     data = pullData.requestData(ticker, start, end, interval, range)
     return data
+
+
+@app.route("/search", methods=["GET", "POST"])
+# @cross_origin()
+def search(): #json array
+    args = request.args
+    keyword = args.get("keyword")
+    query = {'keyword':keyword, 'pageSize':20, 'pageIndex' : 1}
+    response = requests.get('https://quotes-gw.webullfintech.com/api/search/pc/tickers', params=query)
+    print(response.json())
+    return response.json()
+
+
+#API route
+@app.route("/watchlist", methods=["GET", "POST"])
+# @cross_origin()
+def watchlist(): #json array
+    args = request.args
+    tickers = args.get("tickers")
+    start = args.get("start")
+    end = args.get("end")
+    interval = args.get("interval")
+    range = args.get("range")
+    print('tickers',tickers)
+    data = pullData.requestWatchListData(json.loads(tickers), start, end, interval, range)
+    return data
+
 
 if __name__ == "__main__":
     app.run(debug = True)
