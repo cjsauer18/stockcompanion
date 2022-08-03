@@ -4,6 +4,7 @@ import pullData
 app = Flask("__name__")
 CORS(app)
 
+import requests
 import json
 
 
@@ -24,6 +25,15 @@ def members(): #json array
     return data
 
 
+@app.route("/search", methods=["GET", "POST"])
+# @cross_origin()
+def search(): #json array
+    args = request.args
+    keyword = args.get("keyword")
+    query = {'keyword':keyword, 'pageSize':20, 'pageIndex' : 1}
+    response = requests.get('https://quotes-gw.webullfintech.com/api/search/pc/tickers', params=query)
+    print(response.json())
+    return response.json()
 
 
 #API route

@@ -11,7 +11,7 @@ const TickerSearch = () => {
   const changeHandler = async (e) => {
     try {
       const SEARCH_API = await fetch(
-        `https://quotes-gw.webullfintech.com/api/search/pc/tickers?keyword=${e.target.value}&pageIndex=1&pageSize=20`
+        `http://localhost:5000/search?keyword=${e.target.value}`
       );
       const response = await SEARCH_API.json();
       setTickerData(response.data);

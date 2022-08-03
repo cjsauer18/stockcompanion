@@ -137,12 +137,12 @@ const WatchlistCard = () => {
               <td>{trade.close}</td>
               <td>{trade.high}</td>
               <td>{trade.low}</td>
-              <td
+              {/* <td
                 className="text-primary"
                 role={"button"}
               >
                 Remove
-              </td>
+              </td> */}
             </tr>
           ))}
         </tbody>
