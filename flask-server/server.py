@@ -4,6 +4,7 @@ import pullData
 app = Flask("__name__")
 CORS(app)
 
+import json
 
 
 #@app.route('/<end point>', defaults={'<variable name>' : '<default value>'})
@@ -21,6 +22,24 @@ def members(): #json array
     range = args.get("range")
     data = pullData.requestData(ticker, start, end, interval, range)
     return data
+
+
+
+
+#API route
+@app.route("/watchlist", methods=["GET", "POST"])
+# @cross_origin()
+def watchlist(): #json array
+    args = request.args
+    tickers = args.get("tickers")
+    start = args.get("start")
+    end = args.get("end")
+    interval = args.get("interval")
+    range = args.get("range")
+    print('tickers',tickers)
+    data = pullData.requestWatchListData(json.loads(tickers), start, end, interval, range)
+    return data
+
 
 if __name__ == "__main__":
     app.run(debug = True)

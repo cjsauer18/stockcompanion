@@ -4,12 +4,8 @@ import ApexChart from "../../Chart/ApexChart";
 import Default from "../../Components/Layout/Default";
 import Stock from "../../Components/stock";
 
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
-import { BiSearch } from "react-icons/bi";
-
 import "./home.css";
+import TickerSearch from "../../Components/TickerSearch/TickerSearch";
 
 const Home = () => {
   const intervals = [
@@ -48,10 +44,12 @@ const Home = () => {
     },
   ];
 
+  const [isInWatchList, setIsInWatchList] = useState(false);
   const [changeInterval, setChangeInterval] = useState("1m");
   const [changeRange, setChangeRange] = useState("1d");
 
-  const stock = new Stock("TSLA");
+  const storedTicker = localStorage.getItem("ACTIVE_TICKER") || "TSLA";
+  const stock = new Stock(storedTicker);
 
   const handleInterval = (interval) => {
     setChangeInterval(interval);
@@ -62,30 +60,50 @@ const Home = () => {
   };
 
   const handleWatchlist = () => {
-    alert("Added to Watchlist");
-    localStorage.setItem("Tesla", "true");
+    try {
+      const storedTicker = localStorage.getItem("ACTIVE_TICKER") || "TSLA";
+      var tickersWatchList =
+        JSON.parse(localStorage.getItem("tickersWatchList")) || [];
+
+      // tickersWatchList.push(storedTicker);
+      const indexOfTicker = tickersWatchList.indexOf(storedTicker);
+      if (indexOfTicker !== -1) {
+        tickersWatchList.splice(indexOfTicker, 1);
+        setIsInWatchList(false)
+      } else {
+        tickersWatchList.push(storedTicker);
+        setIsInWatchList(true)
+      }
+      console.log(tickersWatchList);
+
+      localStorage.setItem(
+        "tickersWatchList",
+        JSON.stringify(tickersWatchList)
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     stock.getData();
   });
 
+
+  useEffect(() => {
+    var tickersWatchList =
+      JSON.parse(localStorage.getItem("tickersWatchList")) || [];
+    const indexOfTicker = tickersWatchList.indexOf(storedTicker);
+    if(indexOfTicker !== -1) {
+      setIsInWatchList(true);
+    }
+  },[]);
+
   return (
     <Fragment>
       <Default>
-        <div className="container my-4">
-          <Form className="d-flex mb-5">
-            <Form.Control
-              type="search"
-              placeholder="Enter Stock Ticker"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button className="btn-secondary">
-              <BiSearch />
-            </Button>
-          </Form>
-
+        <TickerSearch />
+        <div className="container my-4 chart__position">
           <div className="d-flex justify-content-between">
             <div className="select-interval">
               <p className="mb-1 font-12 text-white">Interval</p>
@@ -154,7 +172,7 @@ const Home = () => {
               className="btn btn-secondary me-3"
               onClick={handleWatchlist}
             >
-              Add to Watchlist
+              { !isInWatchList ? "Add To Watchlist" : "Remove from Watchlist" }
             </button>
             <button className="btn btn-secondary">Set Notification</button>
           </div>
