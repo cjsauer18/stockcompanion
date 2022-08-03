@@ -145,7 +145,7 @@ const Home = () => {
             </div>
           </div>
           <div className="row">
-            <Dashboard />
+            <Dashboard alerts={stockList} />
             <div className="col-md-12">
               <ApexChart
                 Stock={stock}
@@ -164,7 +164,7 @@ const Home = () => {
             {/* <button className="btn btn-secondary">Set Notification</button> */}
             <Notification
               stock={stockList[currentStock]}
-              setChange={setStockLost}
+              setChange={setStockList}
             />
             {/* MAKESHIFT passing in the function to change the state of the parent component as notification settings are stored here BUT COULD BE STORED IN A SERVER AS DATA!!!!!!  */}
             {/* removing and adding notifications for specific stocks are handled in the same component: <Notification/>  */}
