@@ -13,20 +13,30 @@ class Stock {
 
     //have a set timer inside this stock object?
   }
-  getRange() {}
+  getPrice() {
+    let dataResponse = fetchData(this);
+    dataResponse.then((result) => {
+      var _data = formatData(result);
+      this.data = _data;
+    });
+    return this.data[this.data.length - 1];
+  }
+  //dont use
   refresh() {
     // calls fetch data with parameters
-    // setInterval(() => {
-    //   console.log("fetching data:");
-    //   let data = fetchData(this);
-    //   data.then((result) => {
-    //     data = formatData(result);
-    //     console.log("result:", data);
-    //     this.data = data;
-    //     // return data;
-    //   });
-    //   //this.data = data;
-    // }, 20000);
+    setInterval(() => {
+      console.log("[", this.ticker, ":STOCK] fetching data");
+      let data = fetchData(this);
+      data.then((result) => {
+        data = formatData(result);
+        //console.log("result:", data);
+        this.data = data;
+      });
+    }, 10000);
+  }
+  haltRefresh() {
+    console.log("[", this.ticker, ":STOCK] Halting refresh");
+    clearInterval(this.refresh());
   }
   // getData() {
   //   return this.data;

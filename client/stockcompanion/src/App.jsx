@@ -1,12 +1,11 @@
 import "./styles.css";
 import React, { useState } from "react";
-import HomePage from "./Pages/HomePage";
 import { BrowserRouter } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { StockContext } from "./Contexts/StockContext";
 import WatchListPage from "./Pages/WatchListPage";
-import Home from "./Pages/Home/Home";
+import HomePage from "./Pages/HomePage";
 import Header from "./Components/Header/Header";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,7 +19,7 @@ function App() {
         {/* <Nav /> */}
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomePage />} />
           {/* <Route path="/old-home" element={<HomePage />} /> */}
           <Route path="/watchlist" element={<WatchListPage />} />
         </Routes>

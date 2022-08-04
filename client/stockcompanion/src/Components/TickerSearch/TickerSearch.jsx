@@ -4,9 +4,10 @@ import { Button, Card, Form } from "react-bootstrap";
 import { BiSearch } from "react-icons/bi";
 import "./tickersearch.css";
 
-const TickerSearch = () => {
+const TickerSearch = (props) => {
   const [tickerData, setTickerData] = useState([]);
   const [activeTicker, setActiveTicker] = useState(false);
+  const [updateStockList] = useState(props); //takes a handle from parent homepage component.
 
   const changeHandler = async (e) => {
     try {

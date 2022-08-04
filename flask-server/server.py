@@ -8,6 +8,8 @@ import requests
 import json
 
 
+import datetime
+
 #@app.route('/<end point>', defaults={'<variable name>' : '<default value>'})
 
 
@@ -49,6 +51,14 @@ def watchlist(): #json array
     print('tickers',tickers)
     data = pullData.requestWatchListData(json.loads(tickers), start, end, interval, range)
     return data
+
+
+# @app.route("/stream", methods = ["GET", "POST"])
+# def stream():
+#     def get_data():
+#         while True:
+#             yield f'data: {datetime.now()} \n\n'
+#     return Response(get_data(), mimetype = "text/event-stream")
 
 
 if __name__ == "__main__":
