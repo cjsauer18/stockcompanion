@@ -7,9 +7,7 @@ import { StockContext } from "../Contexts/StockContext";
 //import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./HomePage.css";
-import Stock from "../Components/stock";
-import TickerSearch from "../Components/TickerSearch/TickerSearch";
-import Chart from "../Components/Chart/Chart";
+
 //have a handleButton function that takes as input the start range for the graph.
 //it takes the stock obect and calls .setStart() which is set as the context again.
 
@@ -54,18 +52,19 @@ function HomePage() {
   //I can use this code in a stock list functionality, and for existing alers.
 
   return (
-    <Fragment>
-      <div className="home-page">
-        <TickerSearch />
+    <div></div>
+    // <Fragment>
+    //   <div className="home-page">
+    //     <TickerSearch />
 
-        <Chart />
+    //     <Chart />
 
-        {/* <button className="btn btn-secondary">Set Notification</button> */}
-        <Notification />
-        {/* MAKESHIFT passing in the function to change the state of the parent component as notification settings are stored here BUT COULD BE STORED IN A SERVER AS DATA!!!!!!  */}
-        {/* removing and adding notifications for specific stocks are handled in the same component: <Notification/>  */}
-      </div>
-    </Fragment>
+    //     {/* <button className="btn btn-secondary">Set Notification</button> */}
+    //     <Notification />
+    //     {/* MAKESHIFT passing in the function to change the state of the parent component as notification settings are stored here BUT COULD BE STORED IN A SERVER AS DATA!!!!!!  */}
+    //     {/* removing and adding notifications for specific stocks are handled in the same component: <Notification/>  */}
+    //   </div>
+    // </Fragment>
   );
 }
 

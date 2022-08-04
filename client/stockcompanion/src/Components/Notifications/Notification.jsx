@@ -33,25 +33,28 @@ function contains(obj, alerts) {
   return false;
 }
 
+//account for active swtich in TILE component. Maybe have a constatn interval timer save the state of the noticifcations in local storage?
+
 function Notification(props) {
   const [alertContainer, setAlertContainer] = useState("");
   const [alerts, setAlerts] = useState([]);
   const [interval, setInterval] = useState("1 min");
   const [intervalButtonActive, setIntervalButtonActive] = useState([]);
 
-  useEffect(() => {
-    //rerender existing notifications that were set back into state from local storage.
-    setAlerts(JSON.parse(localStorage.getItem("alerts")));
-    const currentStock = localStorage.getItem("ACTIVE_TICKER");
-  });
+  // useEffect(() => {
+  //   //rerender existing notifications that were set back into state from local storage.
+  //   var currentAlerts = JSON.parse(localStorage.getItem("alerts")) || [];
+  //   if (currentAlerts !== alerts) {
+  //     console.log("mysh", currentAlerts, "current sh", alerts);
+  //     setAlerts(currentAlerts);
+  //     console.log("[ALERT RERENDER] Alerts State", alerts);
+  //   }
+  //   const currentStock = localStorage.getItem("ACTIVE_TICKER");
+  // });
 
-  //CREATE a stock checking mechanism from local storage
-  setTimeout(() => {
+  const handleSetNotification = (interval) => {
     const currentStock = localStorage.getItem("ACTIVE_TICKER");
-  }, 1000);
-
-  const handleSetNotification = (currentStock, interval) => {
-    console.log("here");
+    console.log("mycurrentshit:", currentStock);
     const newAlert = new Alert(currentStock, interval);
     console.log("alert created");
 
@@ -62,7 +65,7 @@ function Notification(props) {
       console.log("new alert state", alert);
     } else if (!contains(newAlert, alerts)) {
       setAlerts(new Array(...alerts, newAlert));
-      localStorage.setItem("alerts", JSON.stringify(Alerts));
+      localStorage.setItem("alerts", JSON.stringify(alerts));
     } else {
       console.log("Alert already in set");
     }
@@ -71,31 +74,36 @@ function Notification(props) {
   const intervals = [
     {
       name: "1 min",
+      interval: 6000,
     },
     {
       name: "5 min",
+      interval: 30000,
     },
     {
       name: "10 min",
+      interval: 60000,
     },
     {
       name: "30 min",
+      interval: 1800000,
     },
     {
       name: "1 hr",
+      interval: 3600000,
     },
   ];
 
   return (
     <div>
       <div>
-        {/* <Dashboard alerts={alerts} />  this can probably stay here. This can also use lcoal storage as it's save space if needed */}
+        {/* <Dashboard /> */}
         <Form className="interval-change-form">
           {intervals.map((interval, i) => {
             return (
               <Button
                 key={i}
-                onClick={() => setInterval(interval)}
+                onClick={() => setInterval(interval.interval)}
                 className="interval-btn"
               >
                 {interval.name}
@@ -104,7 +112,7 @@ function Notification(props) {
           })}
           <Button
             className="set-notification"
-            onClick={() => handleSetNotification(currentStock, interval)}
+            onClick={() => handleSetNotification(interval)}
           >
             Set Notification
           </Button>

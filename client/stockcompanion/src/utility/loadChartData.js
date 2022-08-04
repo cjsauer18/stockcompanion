@@ -26,8 +26,6 @@ export async function fetchData(stockData) {
   return Data;
 }
 
-function retreiveDataFromDatabase() {}
-
 //Takes in raw yf API data in the form of a pandas dataframe. Extracts the relavent price parameters and formats them into a
 //candle stick format for apex chart.
 export function formatData(data) {

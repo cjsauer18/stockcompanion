@@ -1,24 +1,19 @@
 import React, { Fragment, useState } from "react";
 import { useEffect } from "react";
 import ApexChart from "../../Chart/ApexChart";
-import Default from "../Layout/Default";
-import Stock from "../stock";
-import Notification from "../Notifications/Notification";
-import Dashboard from "../Notifications/Dashboard";
+import Default from "../../Components/Layout/Default";
+import Stock from "../../Components/stock";
+import Notification from "../../Components/Notifications/Notification";
+import Dashboard from "../../Components/Notifications/Dashboard";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import { BiSearch } from "react-icons/bi";
 
-import "./Chart.css";
+import "./Home.css";
+import TickerSearch from "../../Components/TickerSearch/TickerSearch";
 
-const Chart = (props) => {
-  // const [stock, setStock] = useState();
-  const [isInWatchList, setIsInWatchList] = useState(false);
-
-  const storedTicker = localStorage.getItem("ACTIVE_TICKER") || "TSLA";
-  const stock = new Stock(storedTicker);
-
+const Home = () => {
   const intervals = [
     {
       name: "1M",
@@ -55,8 +50,15 @@ const Chart = (props) => {
     },
   ];
 
+  const [isInWatchList, setIsInWatchList] = useState(false);
   const [changeInterval, setChangeInterval] = useState("1m");
   const [changeRange, setChangeRange] = useState("1d");
+
+  const [stockList, setStockList] = useState([]); //pass the parent setstate function (setStockList) down as a prop to the notification component
+  const [currentStock, setCurrentStock] = useState(""); //this is a simple string that will use to index the stockList like stockList[currentStock].
+
+  const storedTicker = localStorage.getItem("ACTIVE_TICKER") || "TSLA";
+  const stock = new Stock(storedTicker);
 
   const handleInterval = (interval) => {
     setChangeInterval(interval);
@@ -66,18 +68,6 @@ const Chart = (props) => {
     setChangeRange(range);
   };
 
-  useEffect(() => {
-    var tickersWatchList =
-      JSON.parse(localStorage.getItem("tickersWatchList")) || [];
-    const indexOfTicker = tickersWatchList.indexOf(storedTicker);
-    if (indexOfTicker !== -1) {
-      setIsInWatchList(true);
-    }
-  }, []);
-  useEffect(() => {
-    stock.getData();
-    console.log("hey");
-  });
   const handleWatchlist = () => {
     try {
       const storedTicker = localStorage.getItem("ACTIVE_TICKER") || "TSLA";
@@ -104,10 +94,25 @@ const Chart = (props) => {
     }
   };
 
+  useEffect(() => {
+    stock.getData();
+    console.log("hey");
+  });
+
+  useEffect(() => {
+    var tickersWatchList =
+      JSON.parse(localStorage.getItem("tickersWatchList")) || [];
+    const indexOfTicker = tickersWatchList.indexOf(storedTicker);
+    if (indexOfTicker !== -1) {
+      setIsInWatchList(true);
+    }
+  }, []);
+  <Dashboard />;
+
   return (
     <Fragment>
       <Default>
-        {/* <TickerSearch /> */}
+        <TickerSearch />
         <div className="container my-4 chart__position">
           <div className="d-flex justify-content-between">
             <div className="select-interval">
@@ -179,6 +184,23 @@ const Chart = (props) => {
             >
               {!isInWatchList ? "Add To Watchlist" : "Remove from Watchlist"}
             </button>
+            {/* <button className="btn btn-secondary">Set Notification</button> */}
+            <Notification />
+            {/* MAKESHIFT passing in the function to change the state of the parent component as notification settings are stored here BUT COULD BE STORED IN A SERVER AS DATA!!!!!!  */}
+            {/* removing and adding notifications for specific stocks are handled in the same component: <Notification/>  */}
+          </div>
+          <div className="mb-5">
+            <h3 className="text-white">Footnotes</h3>
+            <div className="d-flex">
+              <input
+                type="text"
+                className="form-control w-50 me-3"
+                placeholder="Enter Footnotes ..."
+              />
+              <button type="submit" className="btn btn-primary px-4">
+                Post
+              </button>
+            </div>
           </div>
         </div>
       </Default>
@@ -189,4 +211,4 @@ const Chart = (props) => {
 //this should contain a state that has all our stock details.
 //-its set notifications and things
 
-export default Chart;
+export default Home;
