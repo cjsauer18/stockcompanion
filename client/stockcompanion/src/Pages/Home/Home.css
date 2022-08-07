@@ -1,4 +1,5 @@
-.range, .interval {
+.range,
+.interval {
   font-weight: bold;
   border: 1px solid grey;
   padding: 5px;
@@ -10,7 +11,7 @@
 }
 
 .add-watchlist {
-    text-align: right;
+  text-align: right;
 }
 
 .chart__position {

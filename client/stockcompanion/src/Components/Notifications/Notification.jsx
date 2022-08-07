@@ -5,6 +5,7 @@ import NotificationTile from "./NotificationTile";
 import Form from "react-bootstrap/Form";
 import { BiSearch } from "react-icons/bi";
 import Alert from "./Alert";
+import { formatData, getTop } from "../../utility/loadChartData";
 
 import { sleep } from "../../utility/util";
 import Dashboard from "./Dashboard";
@@ -19,13 +20,13 @@ import Dashboard from "./Dashboard";
 function contains(obj, alerts) {
   var i;
   for (i = 0; i < alerts.length; i++) {
-    console.log(
-      "COMPARE",
-      obj.name,
-      alerts[i].name,
-      obj.interval,
-      alerts[i].interval
-    );
+    // console.log(
+    //   "COMPARE",
+    //   obj.name,
+    //   alerts[i].name,
+    //   obj.interval,
+    //   alerts[i].interval
+    // );
     if (obj.name === alerts[i].name && obj.interval === alerts[i].interval) {
       return true;
     }
@@ -38,72 +39,146 @@ function contains(obj, alerts) {
 function Notification(props) {
   const [alertContainer, setAlertContainer] = useState("");
   const [alerts, setAlerts] = useState([]);
-  const [interval, setInterval] = useState("1 min");
+  const [interval, setInterval] = useState(false);
   const [intervalButtonActive, setIntervalButtonActive] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    const alerts = JSON.parse(localStorage.getItem("alerts")) || [];
+    setAlerts(alerts);
+  }, []);
+
+  //to update the local storage once the fetch returns with start price data.
   // useEffect(() => {
-  //   //rerender existing notifications that were set back into state from local storage.
-  //   var currentAlerts = JSON.parse(localStorage.getItem("alerts")) || [];
-  //   if (currentAlerts !== alerts) {
-  //     console.log("mysh", currentAlerts, "current sh", alerts);
-  //     setAlerts(currentAlerts);
-  //     console.log("[ALERT RERENDER] Alerts State", alerts);
-  //   }
-  //   const currentStock = localStorage.getItem("ACTIVE_TICKER");
-  // });
+  //   console.log("did alert change?", alerts);
+  //   setIsLoading(false); //assuming this rerenders for dashboard
+  //   localStorage.setItem("alerts", JSON.stringify(alerts));
+  // }, [isLoading]);
 
-  const handleSetNotification = (interval) => {
-    const currentStock = localStorage.getItem("ACTIVE_TICKER");
-    console.log("mycurrentshit:", currentStock);
-    const newAlert = new Alert(currentStock, interval);
-    console.log("alert created");
+  const currentStock = localStorage.getItem("ACTIVE_TICKER");
 
-    //WHAT HAPPENS IF A STOCK HAS 2 INTERVALS SET. THE ALERT OBJECT SHOULD CONTAIN MULTIPLE OUTLETS THAT FIRE. CANT MAKE MULTIPLE OBJECTS THAT SPAM THE API CALL.
-
-    if (alerts.length === 0) {
-      setAlerts([newAlert]);
-      console.log("new alert state", alert);
-    } else if (!contains(newAlert, alerts)) {
-      setAlerts(new Array(...alerts, newAlert));
-      localStorage.setItem("alerts", JSON.stringify(alerts));
+  const handleDelete = (alert) => {
+    const index = alerts.indexOf(alert);
+    if (alerts.length === 1) {
+      setAlerts([]);
+      localStorage.removeItem("alerts");
     } else {
-      console.log("Alert already in set");
+      const newAlerts = new Array(...alerts);
+      newAlerts.splice(index, 1);
+      setAlerts(newAlerts);
+      localStorage.setItem("alerts", JSON.stringify(newAlerts));
+    }
+  };
+
+  const handleAlertUpdate = async (alert) => {
+    alert.startTime = Math.floor(Date.now() / 1000); //this might call a rerender for notifications, ebcau
+    alert.startPrice = await fetchPrice(
+      `http://localhost:5000/members?ticker=${alert.stock}&start=${Math.floor(
+        Date.now() / 1000
+      )}&end=${Math.floor(Date.now() / 1000)}&interval=1m&range=1m`
+    );
+    console.log("check out my new sick alerts", alerts);
+    // setAlerts(new Array(...alerts)); //forces a state update. This wont be good. Because the set interval loses its index.
+  };
+
+  const toggleActive = async (alert) => {
+    if (alert.isActive) {
+      alert.isActive = false;
+    } else if (!alert.isActive) {
+      alert.isActive = true;
+      alert.startTime = Math.floor(Date.now() / 1000);
+
+      //assures the toggled alert has the most recent data.
+      alert.startPrice = await fetchPrice(
+        `http://localhost:5000/members?ticker=${alert.stock}&start=${Math.floor(
+          Date.now() / 1000
+        )}&end=${Math.floor(Date.now() / 1000)}&interval=1m&range=1m`
+      );
+    }
+    setAlerts(new Array(...alerts));
+    localStorage.setItem("alerts", JSON.stringify(alerts));
+  };
+
+  const fetchPrice = async (url) => {
+    const response = await fetch(url);
+    const data = await response.json();
+    const formattedData = formatData(data);
+    setIsLoading(true);
+    //   console.log("lets see..", formattedData[0].y[0]);
+    //setIsLoadingFetch(true)
+    return Math.floor(formattedData[0].y[0]);
+  };
+
+  //market is not open on this day. If the returned date is on the weekend.
+  const handleSetNotification = (interval) => {
+    console.log(interval);
+    if (!interval) {
+      return;
+    }
+    const currentStock = localStorage.getItem("ACTIVE_TICKER");
+    const newAlert = {
+      stock: currentStock,
+      interval: interval.interval,
+      desc: interval.name,
+      isActive: false,
+      url: `http://localhost:5000/members?ticker=${currentStock}&start=${Math.floor(
+        Date.now() / 1000
+      )}&end=${Math.floor(Date.now() / 1000)}&interval=1m&range=1m`,
+      //see what this brings me
+      id: alerts.length,
+      startPrice: "",
+      startTime: Date.now() / 1000,
+    };
+    //console.log("alert created");
+    // console.log("fetching the price", newAlert);
+    if (alerts.length === 0) {
+      const newAlerts = new Array(newAlert);
+      setAlerts(newAlerts);
+      localStorage.setItem("alerts", JSON.stringify(newAlerts)); //this does not return in time when the price has fetched.
+
+      //console.log("new alert state", alerts);
+    } else if (!contains(newAlert, alerts)) {
+      const newAlerts = new Array(...alerts);
+      newAlerts.push(newAlert);
+      setAlerts(newAlerts);
+      localStorage.setItem("alerts", JSON.stringify(newAlerts));
     }
   };
 
   const intervals = [
     {
       name: "1 min",
-      interval: 6000,
+      interval: 60,
     },
     {
       name: "5 min",
-      interval: 30000,
+      interval: 300,
     },
     {
       name: "10 min",
-      interval: 60000,
+      interval: 600,
     },
     {
       name: "30 min",
-      interval: 1800000,
+      interval: 18000,
     },
     {
       name: "1 hr",
-      interval: 3600000,
+      interval: 36000,
     },
   ];
 
   return (
     <div>
       <div>
-        {/* <Dashboard /> */}
+        {/* <Dashboard alerts={alerts} handleAlertUpdate={handleAlertUpdate} /> */}
+        {/* <Dashboard alerts={alerts} />  this can probably stay here. This can also use lcoal storage as it's save space if needed */}
         <Form className="interval-change-form">
           {intervals.map((interval, i) => {
             return (
               <Button
                 key={i}
-                onClick={() => setInterval(interval.interval)}
+                onClick={() => setInterval(interval)}
                 className="interval-btn"
               >
                 {interval.name}
@@ -125,8 +200,10 @@ function Notification(props) {
             alerts.map((alert, i) => (
               <NotificationTile
                 key={i}
-                container={alert}
-                parent_handle={setAlerts}
+                isActive={alert.isActive}
+                toggleActive={toggleActive}
+                alert={alert}
+                handleDelete={handleDelete}
               />
               // <button></button> toggle active, maybe remove button here
             ))

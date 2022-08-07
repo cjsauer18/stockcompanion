@@ -25,6 +25,16 @@ export async function fetchData(stockData) {
   // }, []);
   return Data;
 }
+// export async function getTop(url) {
+//   let Data = [];
+//   console.log("no?");
+//   await axios_.get(url).then((res) => {
+//     Data = res.data;
+//     // return Data;
+//   });
+
+//   console.log("thsi is my data", Data);
+// }
 
 //Takes in raw yf API data in the form of a pandas dataframe. Extracts the relavent price parameters and formats them into a
 //candle stick format for apex chart.
@@ -56,6 +66,7 @@ export function formatData(data) {
       y: [open[i], high[i], low[i], close[i]],
     });
   }
+  console.log("candle stick data", candleStickData);
   return candleStickData;
 }
 function get(list) {

@@ -14,8 +14,17 @@ import datetime
 
 
 #API route
-@app.route("/members", methods=["GET", "POST"])
 # @cross_origin()
+
+@app.route("/live", methods = ["GET", "POST"])
+def live():
+    args = request.args
+    ticker = args.get("ticker")
+    data = pullData.get_live_price(ticker)
+    print("no?")
+    return data
+
+@app.route("/members", methods=["GET", "POST"])
 def members(): #json array
     args = request.args
     ticker = args.get("ticker")

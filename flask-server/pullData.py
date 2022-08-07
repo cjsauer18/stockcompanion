@@ -1,5 +1,6 @@
 from pandas_datareader import data as pdr
 import yfinance as yf
+import yahoo_fin as yfin
 import json
 import datetime
 
@@ -25,6 +26,14 @@ def checkString(date_string):
 #start : string <YYYY-MM-DD>
 #end : string <YYYY-MM-DD>
 
+
+def get_live_price(ticker):
+    data = yf.Ticker(str(ticker))
+    price = data.info
+    print("INFO",price)
+    return price
+
+
 def requestData(ticker, start, end, interval, range):
     print("[DEBUG] ",ticker)
 
@@ -42,7 +51,8 @@ def requestData(ticker, start, end, interval, range):
     
     data = pdr.get_data_yahoo(str(ticker), interval = str(interval), period=range)#, interval=str(interval) + "d", range=range)
     data = data.to_json()
-    # print(data)
+
+    #print(data)
     return data
 
 
