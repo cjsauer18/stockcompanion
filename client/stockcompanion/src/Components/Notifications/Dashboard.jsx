@@ -2,110 +2,91 @@ import React, { useState, useEffect } from "react";
 import { formatData } from "../../utility/loadChartData";
 import UnderscoreSpring from "./UnderscoreSpring";
 import "./Dashboard.css";
-//this will display notification alerts as they appear generated from notification.jsx
 
-//TAKES in ALERTS, so it stays updated. Parent rerender triggers a rerender for this.
-//If relying on local storage, we could have to constantly check whetehr an alert's values were updated upon an fulfilled promise return. So, that means a set timer that pulls local storage.
+//This component relies on alerts retreived and parsed from local storage. It reads the current set alerts handled and configured within notifications, and makes the appropriate calculations.
 
-function Dashboard({ alerts, handleAlertUpdate }) {
-  //it uses a list that it recieves as a prop.
+function Dashboard() {
   const [state, setState] = useState([]); //handles the state of what is presented.
-
-  //var alerts = JSON.parse(localStorage.getItem("alerts")) || [];
 
   useEffect(() => {
     const alertHistory =
       JSON.parse(localStorage.getItem("alert_history")) || [];
-    console.log("wee");
+    console.log("rerendering dashboard");
     setState(alertHistory);
   }, []);
 
-  const fetchPrice = async (url) => {
+  //This interval may be off for weekends, or after 5PM EST when the stock market closes. Should implement a check for this to bypass any redundant fetching.
+  const fetchPrice = async (stock) => {
+    const url = `http://localhost:5000/members?ticker=${stock}&start=${Math.floor(
+      Date.now() / 1000
+    )}&end=${Math.floor(Date.now() / 1000)}&interval=1m&range=5m`;
     const response = await fetch(url);
     const data = await response.json();
     const formattedData = formatData(data);
 
-    // console.log("lets see..", formattedData[0].y[0]);
-
     return Math.floor(formattedData[formattedData.length - 1].y[0]);
   };
 
-  //   useEffect(() => {
-  //     console.log("heres my copy, oops just rerendered", alerts);
-  //   }, []);
+  useEffect(() => {
+    let timer = setInterval(async () => {
+      const alerts = JSON.parse(localStorage.getItem("alerts")) || []; //ensures we have the most updated data. Doesnt rely on state change (cant rely on state change because we odnt have complete control over that)
 
-  //et timer1 = setTimeout(() => setShow(true), delay * 1000);
-
-  // this will clear Timeout
-  // when component unmount like in willComponentUnmount
-  //   // and show will not change to true
-  //   return () => {
-  //     clearTimeout(timer1);
-  //   };
-
-  //useEffect(() => {
-  let timer = setInterval(async () => {
-    // console.log("reffeshing alerts list", alerts);
-    for (let i = 0; i < alerts.length; ++i) {
-      //interval is in miliseconds. Start tiem in UNIX time.
-      // console.log("spinning", alerts[i]);
-      if (alerts[i].isActive) {
-        //  console.log("active", alerts[i]);
-
-        console.log(
-          "[checking interval] Interval sought:",
-          alerts[i].interval,
-          "start Time",
-          alerts[i].startTime,
-          "current time frame:",
-          Math.abs(alerts[i].startTime - Math.floor(Date.now() / 1000))
-        );
-        if (
-          alerts[i].interval <=
-          Math.abs(alerts[i].startTime - Math.floor(Date.now() / 1000))
-        ) {
-          //adjust start time for reset.
-
-          const currentPrice = await fetchPrice(alerts[i].url);
-          const percentChange =
-            ((alerts[i].startPrice - currentPrice) / alerts[i].startPrice) *
-            100;
+      for (let i = 0; i < alerts.length; ++i) {
+        if (alerts[i].isActive) {
           console.log(
-            "Start Price | End Price | Percent Change: ",
-            alerts[i].startPrice,
-            currentPrice,
-            percentChange
+            "[checking interval] Interval sought:",
+            alerts[i].interval,
+            "start Time",
+            alerts[i].startTime,
+            "current time frame:",
+            Math.abs(alerts[i].startTime - Math.floor(Date.now() / 1000))
           );
-          console.log("[FIRING]", alerts[i].name, alerts[i].interval);
+          if (
+            alerts[i].interval <=
+            Math.abs(alerts[i].startTime - Math.floor(Date.now() / 1000))
+          ) {
+            //adjust start time for reset.
 
-          //will be just above greater than or equal to. that is incurred from the set interval timer.
-          const fireAlert = {
-            name: alerts[i].name,
-            interval: alerts[i].interval,
-            currentTime: Math.floor(Date.now() / 1000),
-            percentChange: percentChange,
-          };
-          setState(new Array(...state, fireAlert));
-          await handleAlertUpdate(alerts[i]);
-          //dont want to re render component. Just check to see if the alert was handled accordingly.
-          console.log("UPDATED PRICE, UPDATED START TIME", alerts[i]);
+            const currentPrice = await fetchPrice(alerts[i].stock);
+            const percentChange =
+              ((alerts[i].startPrice - currentPrice) / alerts[i].startPrice) *
+              100;
+            console.log(
+              "Start Price | End Price | Percent Change: ",
+              alerts[i].startPrice,
+              currentPrice,
+              percentChange
+            );
+            console.log("[FIRING]", alerts[i].stock, alerts[i].interval);
 
-          //  localStorage.setItem("alerts", JSON.stringify(alerts)); //keeps the alert state updated. However, is this
-          localStorage.setItem("alert_history", JSON.stringify(state)); //update for notification refrence? For full circle?
+            const fireAlert = {
+              name: alerts[i].stock,
+              interval: alerts[i].interval,
+              currentTime: Math.floor(Date.now() / 1000),
+              percentChange: percentChange,
+            };
+
+            alerts[i].startTime = Math.floor(Date.now() / 1000); //this might call a rerender for notifications, ebcau
+            alerts[i].startPrice = await fetchPrice(alerts[i].stock);
+            localStorage.setItem("alerts", JSON.stringify(alerts)); //update alerts in local storage for immediate reference.
+
+            console.log("UPDATED PRICE, UPDATED START TIME", alerts[i]);
+            console.log(
+              "updating dashboard state. PREV",
+              state,
+              "Add:",
+              fireAlert
+            );
+            const newState = new Array(...state, fireAlert);
+            setState(newState);
+
+            localStorage.setItem("alert_history", JSON.stringify(state)); //update for notification refrence? For full circle?
+          }
         }
       }
-    }
-  }, 1000);
-  //return clearInterval(timer);
-  //}, []);
-
-  //clear alert button
-
-  //});
-  //I need to have this dashboard take care of alerts and running them through the clock. All it does is it measures the start and end time differences. I cant have a set interval timer in an object that im stringifying. So, I wil;
-  //ill just analyze the time from date.now() compared to the start time and if the difference matches the interval. If so, add a alert component(frame) to state, and render that out, saving it in local storage.
-
-  //go through each alert in alerts (container). If an alert is active, append to a contrainer that has existing notifications.
+    }, 1000);
+    //return timer;
+  }, []);
 
   return (
     <div>

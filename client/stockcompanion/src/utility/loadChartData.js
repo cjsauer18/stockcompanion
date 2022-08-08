@@ -66,7 +66,6 @@ export function formatData(data) {
       y: [open[i], high[i], low[i], close[i]],
     });
   }
-  console.log("candle stick data", candleStickData);
   return candleStickData;
 }
 function get(list) {

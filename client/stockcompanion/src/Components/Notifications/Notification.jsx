@@ -3,60 +3,32 @@ import Button from "react-bootstrap/Button";
 import "./Notification.css";
 import NotificationTile from "./NotificationTile";
 import Form from "react-bootstrap/Form";
-import { BiSearch } from "react-icons/bi";
-import Alert from "./Alert";
-import { formatData, getTop } from "../../utility/loadChartData";
-
-import { sleep } from "../../utility/util";
+import { formatData } from "../../utility/loadChartData";
 import Dashboard from "./Dashboard";
-//I want to be notified when the price changes a set percentage point.
-//I want to be notificed when the volume changes after a set percentage point.
 
-//track price percentage change every 1 minute, 5 minute, 30 minute, 1 hour. Suite of buttons.
+//This component tracks the price percentage change every 1 minute, 5 minute, 30 minute, 1 hour through use of a suite of interval buttons.
 
-//I can maintain a state that I just send down into the dsashboard component. Or I can manage a list in local storage? To reference constanly in a set interval fashion in the local component? No. Because state wont update that way (SetState inside setTimeout DOESN OT WORK).
-
+//Helper function, compares alerts to a newly created alert to ensure we dont have duplicate alerts.
 function contains(obj, alerts) {
   var i;
   for (i = 0; i < alerts.length; i++) {
-    // console.log(
-    //   "COMPARE",
-    //   obj.name,
-    //   alerts[i].name,
-    //   obj.interval,
-    //   alerts[i].interval
-    // );
-    if (obj.name === alerts[i].name && obj.interval === alerts[i].interval) {
+    if (obj.stock === alerts[i].stock && obj.interval === alerts[i].interval) {
       return true;
     }
   }
   return false;
 }
 
-//account for active swtich in TILE co mponent. Maybe have a constatn interval timer save the state of the noticifcations in local storage?
-
 function Notification(props) {
-  const [alertContainer, setAlertContainer] = useState("");
   const [alerts, setAlerts] = useState([]);
   const [interval, setInterval] = useState(false);
-  const [intervalButtonActive, setIntervalButtonActive] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    //fetches the most recent alerts to load back into state.
     const alerts = JSON.parse(localStorage.getItem("alerts")) || [];
     setAlerts(alerts);
   }, []);
 
-  // to update the local storage once the fetch returns with start price data.
-  // useEffect(() => {
-  //   console.log("did alert change?", alerts);
-  //   setIsLoading(false); //assuming this rerenders for dashboard
-  //   localStorage.setItem("alerts", JSON.stringify(alerts));
-  // }, [isLoading]);
-
-  // const currentStock =
-  //   JSON.parse(localStorage.getItem("ACTIVE_TICKER")) || "TSLA";
-  const currentStock = "TSLA";
   const handleDelete = (alert) => {
     const index = alerts.indexOf(alert);
     if (alerts.length === 1) {
@@ -70,24 +42,13 @@ function Notification(props) {
     }
   };
 
-  const handleAlertUpdate = async (alert) => {
-    alert.startTime = Math.floor(Date.now() / 1000); //this might call a rerender for notifications, ebcau
-    alert.startPrice = await fetchPrice(
-      `http://localhost:5000/members?ticker=${alert.stock}&start=${Math.floor(
-        Date.now() / 1000
-      )}&end=${Math.floor(Date.now() / 1000)}&interval=1m&range=1m`
-    );
-    console.log("check out my new sick alerts", alerts);
-    // setAlerts(new Array(...alerts)); //forces a state update. This wont be good. Because the set interval loses its index.
-  };
-
   const toggleActive = async (alert) => {
     if (alert.isActive) {
       alert.isActive = false;
     } else if (!alert.isActive) {
       alert.isActive = true;
       alert.startTime = Math.floor(Date.now() / 1000);
-
+      console.log("here");
       //assures the toggled alert has the most recent data.
       alert.startPrice = await fetchPrice(
         `http://localhost:5000/members?ticker=${alert.stock}&start=${Math.floor(
@@ -95,7 +56,8 @@ function Notification(props) {
         )}&end=${Math.floor(Date.now() / 1000)}&interval=1m&range=5m`
       );
     }
-    setAlerts(new Array(...alerts));
+    const newState = new Array(...alerts);
+    setAlerts(newState);
     localStorage.setItem("alerts", JSON.stringify(alerts));
   };
 
@@ -111,35 +73,33 @@ function Notification(props) {
     return Math.floor(formattedData[formattedData.length - 1].y[0]);
   };
 
-  //market is not open on this day. If the returned date is on the weekend.
+  //This function handles the set notification functuoanlity. It retrieves the current stock ticker that the user has loaded up, and
+  //creates an alert in state. The alert can be toggled through the notification tile component where it has passed down function handles to the child component (tile)
+  //to toggle active or remove the alert. The alert is handled in the dashboard component.
+
   const handleSetNotification = (interval) => {
-    console.log(interval);
+    const currentStock = localStorage.getItem("ACTIVE_TICKER") || "";
+
+    //console.log(interval);
     if (!interval) {
       return;
     }
-    const currentStock = localStorage.getItem("ACTIVE_TICKER");
-    // const currentStock = "TSLA";
+    if (currentStock === "") return;
 
     const newAlert = {
       stock: currentStock,
       interval: interval.interval,
       desc: interval.name,
       isActive: false,
-      url: `http://localhost:5000/members?ticker=${currentStock}&start=${Math.floor(
-        Date.now() / 1000
-      )}&end=${Math.floor(Date.now() / 1000)}&interval=1m&range=1m`,
       id: alerts.length,
       startPrice: "",
       startTime: Date.now() / 1000,
     };
-    //console.log("alert created");
-    // console.log("fetching the price", newAlert);
+
     if (alerts.length === 0) {
       const newAlerts = new Array(newAlert);
       setAlerts(newAlerts);
       localStorage.setItem("alerts", JSON.stringify(newAlerts)); //this does not return in time when the price has fetched.
-
-      //console.log("new alert state", alerts);
     } else if (!contains(newAlert, alerts)) {
       const newAlerts = new Array(...alerts);
       newAlerts.push(newAlert);
@@ -174,8 +134,7 @@ function Notification(props) {
   return (
     <div>
       <div>
-        <Dashboard alerts={alerts} handleAlertUpdate={handleAlertUpdate} />
-        {/* <Dashboard alerts={alerts} />  this can probably stay here. This can also use lcoal storage as it's save space if needed */}
+        <Dashboard />
         <Form className="interval-change-form">
           {intervals.map((interval, i) => {
             return (

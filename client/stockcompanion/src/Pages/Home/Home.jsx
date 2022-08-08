@@ -54,15 +54,16 @@ const Home = () => {
   const [changeInterval, setChangeInterval] = useState("1m");
   const [changeRange, setChangeRange] = useState("1d");
 
-  const [stockList, setStockList] = useState([]); //pass the parent setstate function (setStockList) down as a prop to the notification component
-  const [currentStock, setCurrentStock] = useState(""); //this is a simple string that will use to index the stockList like stockList[currentStock].
-
   const storedTicker = localStorage.getItem("ACTIVE_TICKER") || "TSLA";
+  localStorage.setItem("ACTIVE_TICKER", storedTicker);
   const stock = new Stock(storedTicker);
 
   const handleInterval = (interval) => {
     setChangeInterval(interval);
   };
+
+  //APEX CHART X AXIS VALUES ARE BOGUS
+  //Y AXIS VALUES NEED TO BE ROUNDED
 
   const handleRange = (range) => {
     setChangeRange(range);
@@ -107,7 +108,6 @@ const Home = () => {
       setIsInWatchList(true);
     }
   }, []);
-  <Dashboard />;
 
   return (
     <Fragment>
@@ -207,8 +207,5 @@ const Home = () => {
     </Fragment>
   );
 };
-
-//this should contain a state that has all our stock details.
-//-its set notifications and things
 
 export default Home;
