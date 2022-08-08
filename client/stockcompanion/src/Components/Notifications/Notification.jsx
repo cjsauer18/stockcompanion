@@ -9,7 +9,6 @@ import { formatData, getTop } from "../../utility/loadChartData";
 
 import { sleep } from "../../utility/util";
 import Dashboard from "./Dashboard";
-
 //I want to be notified when the price changes a set percentage point.
 //I want to be notificed when the volume changes after a set percentage point.
 
@@ -34,7 +33,7 @@ function contains(obj, alerts) {
   return false;
 }
 
-//account for active swtich in TILE component. Maybe have a constatn interval timer save the state of the noticifcations in local storage?
+//account for active swtich in TILE co mponent. Maybe have a constatn interval timer save the state of the noticifcations in local storage?
 
 function Notification(props) {
   const [alertContainer, setAlertContainer] = useState("");
@@ -48,15 +47,16 @@ function Notification(props) {
     setAlerts(alerts);
   }, []);
 
-  //to update the local storage once the fetch returns with start price data.
+  // to update the local storage once the fetch returns with start price data.
   // useEffect(() => {
   //   console.log("did alert change?", alerts);
   //   setIsLoading(false); //assuming this rerenders for dashboard
   //   localStorage.setItem("alerts", JSON.stringify(alerts));
   // }, [isLoading]);
 
-  const currentStock = localStorage.getItem("ACTIVE_TICKER");
-
+  // const currentStock =
+  //   JSON.parse(localStorage.getItem("ACTIVE_TICKER")) || "TSLA";
+  const currentStock = "TSLA";
   const handleDelete = (alert) => {
     const index = alerts.indexOf(alert);
     if (alerts.length === 1) {
@@ -92,7 +92,7 @@ function Notification(props) {
       alert.startPrice = await fetchPrice(
         `http://localhost:5000/members?ticker=${alert.stock}&start=${Math.floor(
           Date.now() / 1000
-        )}&end=${Math.floor(Date.now() / 1000)}&interval=1m&range=1m`
+        )}&end=${Math.floor(Date.now() / 1000)}&interval=1m&range=5m`
       );
     }
     setAlerts(new Array(...alerts));
@@ -103,10 +103,12 @@ function Notification(props) {
     const response = await fetch(url);
     const data = await response.json();
     const formattedData = formatData(data);
-    setIsLoading(true);
+    //setIsLoading(true);
     //   console.log("lets see..", formattedData[0].y[0]);
     //setIsLoadingFetch(true)
-    return Math.floor(formattedData[0].y[0]);
+    console.log("lets see..", formattedData);
+
+    return Math.floor(formattedData[formattedData.length - 1].y[0]);
   };
 
   //market is not open on this day. If the returned date is on the weekend.
@@ -116,6 +118,8 @@ function Notification(props) {
       return;
     }
     const currentStock = localStorage.getItem("ACTIVE_TICKER");
+    // const currentStock = "TSLA";
+
     const newAlert = {
       stock: currentStock,
       interval: interval.interval,
@@ -124,7 +128,6 @@ function Notification(props) {
       url: `http://localhost:5000/members?ticker=${currentStock}&start=${Math.floor(
         Date.now() / 1000
       )}&end=${Math.floor(Date.now() / 1000)}&interval=1m&range=1m`,
-      //see what this brings me
       id: alerts.length,
       startPrice: "",
       startTime: Date.now() / 1000,
@@ -171,7 +174,7 @@ function Notification(props) {
   return (
     <div>
       <div>
-        {/* <Dashboard alerts={alerts} handleAlertUpdate={handleAlertUpdate} /> */}
+        <Dashboard alerts={alerts} handleAlertUpdate={handleAlertUpdate} />
         {/* <Dashboard alerts={alerts} />  this can probably stay here. This can also use lcoal storage as it's save space if needed */}
         <Form className="interval-change-form">
           {intervals.map((interval, i) => {

@@ -24,9 +24,12 @@ function Dashboard({ alerts, handleAlertUpdate }) {
     const response = await fetch(url);
     const data = await response.json();
     const formattedData = formatData(data);
-    //   console.log("lets see..", formattedData[0].y[0]);
-    return Math.floor(formattedData[0].y[0]);
+
+    // console.log("lets see..", formattedData[0].y[0]);
+
+    return Math.floor(formattedData[formattedData.length - 1].y[0]);
   };
+
   //   useEffect(() => {
   //     console.log("heres my copy, oops just rerendered", alerts);
   //   }, []);
@@ -39,6 +42,7 @@ function Dashboard({ alerts, handleAlertUpdate }) {
   //   return () => {
   //     clearTimeout(timer1);
   //   };
+
   //useEffect(() => {
   let timer = setInterval(async () => {
     // console.log("reffeshing alerts list", alerts);
@@ -92,7 +96,11 @@ function Dashboard({ alerts, handleAlertUpdate }) {
       }
     }
   }, 1000);
-  //  return clearInterval(timer);
+  //return clearInterval(timer);
+  //}, []);
+
+  //clear alert button
+
   //});
   //I need to have this dashboard take care of alerts and running them through the clock. All it does is it measures the start and end time differences. I cant have a set interval timer in an object that im stringifying. So, I wil;
   //ill just analyze the time from date.now() compared to the start time and if the difference matches the interval. If so, add a alert component(frame) to state, and render that out, saving it in local storage.
