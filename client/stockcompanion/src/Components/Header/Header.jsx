@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container fluid>
-        <Link to={"/home"} className="navbar-brand">
+        <Link to={""} className="navbar-brand">
           Stock Companion
         </Link>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -21,14 +21,14 @@ const Header = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Link to={"/home"} className="nav-link">
+            <Link to={""} className="nav-link">
               Home
             </Link>
             <Link to={"/watchlist"} className="nav-link">
               Watchlist
             </Link>
           </Nav>
-          <Form className="d-flex">
+          {/* <Form className="d-flex">
             <Form.Control
               type="search"
               placeholder="Search"
@@ -36,7 +36,7 @@ const Header = () => {
               aria-label="Search"
             />
             <Button variant="outline-success">Search</Button>
-          </Form>
+          </Form> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>
