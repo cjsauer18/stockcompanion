@@ -1,15 +1,15 @@
 .dashboard-container {
   background: linear-gradient(
     90deg,
-    rgb(21, 21, 21) 0%,
+    rgb(58, 55, 97) 0%,
     rgba(22, 25, 58, 255) 100%
   );
   /* background-color: white; */
   position: absolute;
-  margin-top: -55%;
+  margin-top: -15%;
   margin-left: -50%;
   width: 600px;
-  height: 1000px;
+  height: 720px;
   z-index: -2;
   border: 5px solid black;
 }
