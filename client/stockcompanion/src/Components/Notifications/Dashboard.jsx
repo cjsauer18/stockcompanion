@@ -97,6 +97,7 @@ function Dashboard() {
   const handleClear = (alert) => {
     const newState = state.splice(alert, 1);
     setState(newState);
+    localStorage.setItem("alert_history", JSON.stringify(newState));
   };
   //This interval may be off for weekends, or after 5PM EST when the stock market closes. Should implement a check for this to bypass any redundant fetching.
   const fetchPrice = async (stock) => {
@@ -164,7 +165,7 @@ function Dashboard() {
             const newState = new Array(...state);
 
             if (state.length !== 0) {
-              const index = contains(fireAlert, state);
+              const index = contains(fireAlert, newState);
               if (index === -1) {
                 newState.push(fireAlert);
               } else {
@@ -173,7 +174,8 @@ function Dashboard() {
             } else {
               newState.push(fireAlert);
             }
-            localStorage.setItem("alert_history", JSON.stringify(newState)); //update for notification refrence? For full circle?
+            localStorage.setItem("alert_history", JSON.stringify(newState));
+            console.log("Updated State", newState); //update for notification refrence? For full circle?
             setState(newState);
           }
         }
