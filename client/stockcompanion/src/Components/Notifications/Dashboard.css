@@ -1,19 +1,46 @@
 .dashboard-container {
-  background: linear-gradient(
+  /* background: linear-gradient(
     90deg,
-    rgb(58, 55, 97) 0%,
+    rgb(0, 0, 0) 0%,
     rgba(22, 25, 58, 255) 100%
-  );
+  ); */
   /* background-color: white; */
-  position: absolute;
-  margin-top: -15%;
-  margin-left: -50%;
+  background: rgb(18, 18, 18);
+  position: relative;
+  margin-top: -5%;
+  margin-left: -10%;
   width: 600px;
   height: 720px;
   z-index: -2;
-  border: 5px solid black;
+  border: 3px solid black;
+  overflow-y: scroll;
 }
 
 .cursor {
   color: blue;
+}
+
+.alert-container {
+  position: relative;
+  list-style: none;
+  color: white;
+  background: rgb(24, 120, 0);
+  border: 1px solid black;
+  margin: 1px 1px 1px 1px;
+}
+.alert-container-inactive {
+  position: relative;
+  list-style: none;
+  color: white;
+  background: rgb(46, 46, 46);
+  border: 1px solid black;
+  margin: 1px 1px 1px 1px;
+}
+
+.alert-clear {
+  display: flex;
+}
+
+.col-2 {
+  display: inline-flex;
 }

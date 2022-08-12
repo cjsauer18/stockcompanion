@@ -48,13 +48,18 @@ function Notification(props) {
     } else if (!alert.isActive) {
       alert.isActive = true;
       alert.startTime = Math.floor(Date.now() / 1000);
-      console.log("here");
-      //assures the toggled alert has the most recent data.
-      alert.startPrice = await fetchPrice(
-        `http://localhost:5000/members?ticker=${alert.stock}&start=${Math.floor(
-          Date.now() / 1000
-        )}&end=${Math.floor(Date.now() / 1000)}&interval=1m&range=5m`
-      );
+      try {
+        //assures the toggled alert has the most recent data.
+        alert.startPrice = await fetchPrice(
+          `http://localhost:5000/members?ticker=${
+            alert.stock
+          }&start=${Math.floor(Date.now() / 1000)}&end=${Math.floor(
+            Date.now() / 1000
+          )}&interval=1m&range=5m`
+        );
+      } catch (Exception) {
+        console.log(Exception);
+      }
     }
     const newState = new Array(...alerts);
     setAlerts(newState);
@@ -79,6 +84,7 @@ function Notification(props) {
 
   const handleSetNotification = (interval) => {
     const currentStock = localStorage.getItem("ACTIVE_TICKER") || "";
+    console.log("fetching ticker:", currentStock);
 
     //console.log(interval);
     if (!interval) {

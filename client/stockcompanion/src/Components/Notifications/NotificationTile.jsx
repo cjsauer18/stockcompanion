@@ -11,6 +11,7 @@ import { getOverlayDirection } from "react-bootstrap/esm/helpers";
 
 function NotificationTile({ isActive, toggleActive, alert, handleDelete }) {
   // const [alert, setAlert] = useState(alert);
+
   return (
     <Card
       className={

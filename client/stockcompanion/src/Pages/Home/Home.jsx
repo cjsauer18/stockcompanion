@@ -185,22 +185,11 @@ const Home = () => {
               {!isInWatchList ? "Add To Watchlist" : "Remove from Watchlist"}
             </button>
             {/* <button className="btn btn-secondary">Set Notification</button> */}
-            <Notification />
             {/* MAKESHIFT passing in the function to change the state of the parent component as notification settings are stored here BUT COULD BE STORED IN A SERVER AS DATA!!!!!!  */}
             {/* removing and adding notifications for specific stocks are handled in the same component: <Notification/>  */}
           </div>
           <div className="mb-5">
-            <h3 className="text-white">Footnotes</h3>
-            <div className="d-flex">
-              <input
-                type="text"
-                className="form-control w-50 me-3"
-                placeholder="Enter Footnotes ..."
-              />
-              <button type="submit" className="btn btn-primary px-4">
-                Post
-              </button>
-            </div>
+            <Notification />
           </div>
         </div>
       </Default>

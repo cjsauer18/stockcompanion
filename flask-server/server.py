@@ -27,7 +27,7 @@ def live():
 @app.route("/members", methods=["GET", "POST"])
 def members(): #json array
     args = request.args
-    ticker = args.get("ticker")
+    ticker = str(args.get("ticker"))
     start = args.get("start")
     end = args.get("end")
     interval = args.get("interval")
