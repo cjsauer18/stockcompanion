@@ -12,10 +12,15 @@
 
 .add-watchlist {
   text-align: right;
+  margin-right: 40%;
 }
 
 .chart__position {
   position: absolute;
   top: 23.5%;
   z-index: -1;
+}
+
+.date-range{
+  margin-right: 40%;
 }
