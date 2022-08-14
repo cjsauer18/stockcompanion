@@ -20,6 +20,7 @@ function contains(obj, list) {
   }
   return -1;
 }
+
 //This component relies on alerts retreived and parsed from local storage. It reads the current set alerts handled and configured within notifications, and makes the appropriate calculations.
 function Dashboard() {
   const [state, setState] = useState([]); //handles the state of what is presented.
