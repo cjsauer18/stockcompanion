@@ -113,83 +113,86 @@ const Home = () => {
     <Fragment>
       <Default>
         <TickerSearch />
-        <div className="container my-4 chart__position">
-          <div className="d-flex justify-content-between">
-            <div className="select-interval">
-              <p className="mb-1 font-12 text-white">Interval</p>
-              <div className="mb-3">
-                {intervals.map((interval, i) => (
-                  <span
-                    className="interval"
-                    onClick={() => {
-                      handleInterval(interval.name.toLocaleLowerCase());
-                    }}
-                    style={{
-                      background:
-                        changeInterval === interval.name.toLocaleLowerCase()
-                          ? "#0a063e"
-                          : "white",
-                      color:
-                        changeInterval === interval.name.toLocaleLowerCase()
-                          ? "white"
-                          : "#0a063e",
-                    }}
-                    key={i}
-                  >
-                    {interval.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="date-range">
-              <p className="mb-1 font-12 text-white">Date Range</p>
-              <div className="mb-3">
-                {ranges.map((range, i) => (
-                  <span
-                    className="range"
-                    onClick={() => {
-                      handleRange(range.name.toLocaleLowerCase());
-                    }}
-                    style={{
-                      background:
-                        changeRange === range.name.toLocaleLowerCase()
-                          ? "#0a063e"
-                          : "white",
-                      color:
-                        changeRange === range.name.toLocaleLowerCase()
-                          ? "white"
-                          : "#0a063e",
-                    }}
-                    key={i}
-                  >
-                    {range.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+        <div className="container my-4">
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-md-3">
+              <Notification />
+            </div>
+
+            <div className="col-md-9">
+              <div className="d-flex justify-content-between">
+                <div className="select-interval">
+                  <p className="mb-1 font-12 text-white">Interval</p>
+                  <div className="mb-3">
+                    {intervals.map((interval, i) => (
+                      <span
+                        className="interval"
+                        onClick={() => {
+                          handleInterval(interval.name.toLocaleLowerCase());
+                        }}
+                        style={{
+                          background:
+                            changeInterval === interval.name.toLocaleLowerCase()
+                              ? "#0a063e"
+                              : "white",
+                          color:
+                            changeInterval === interval.name.toLocaleLowerCase()
+                              ? "white"
+                              : "#0a063e",
+                        }}
+                        key={i}
+                      >
+                        {interval.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="date-range">
+                  <p className="mb-1 font-12 text-white">Date Range</p>
+                  <div className="mb-3">
+                    {ranges.map((range, i) => (
+                      <span
+                        className="range"
+                        onClick={() => {
+                          handleRange(range.name.toLocaleLowerCase());
+                        }}
+                        style={{
+                          background:
+                            changeRange === range.name.toLocaleLowerCase()
+                              ? "#0a063e"
+                              : "white",
+                          color:
+                            changeRange === range.name.toLocaleLowerCase()
+                              ? "white"
+                              : "#0a063e",
+                        }}
+                        key={i}
+                      >
+                        {range.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
               <ApexChart
                 Stock={stock}
                 range={changeRange}
                 interval={changeInterval}
               />
+              <div className="add-watchlist mt-4">
+                <button
+                  className="btn btn-secondary me-3"
+                  onClick={handleWatchlist}
+                >
+                  {!isInWatchList
+                    ? "Add To Watchlist"
+                    : "Remove from Watchlist"}
+                </button>
+                {/* <button className="btn btn-secondary">Set Notification</button> */}
+                {/* MAKESHIFT passing in the function to change the state of the parent component as notification settings are stored here BUT COULD BE STORED IN A SERVER AS DATA!!!!!!  */}
+                {/* removing and adding notifications for specific stocks are handled in the same component: <Notification/>  */}
+              </div>
             </div>
-          </div>
-          <div className="add-watchlist mt-4">
-            <button
-              className="btn btn-secondary me-3"
-              onClick={handleWatchlist}
-            >
-              {!isInWatchList ? "Add To Watchlist" : "Remove from Watchlist"}
-            </button>
-            {/* <button className="btn btn-secondary">Set Notification</button> */}
-            {/* MAKESHIFT passing in the function to change the state of the parent component as notification settings are stored here BUT COULD BE STORED IN A SERVER AS DATA!!!!!!  */}
-            {/* removing and adding notifications for specific stocks are handled in the same component: <Notification/>  */}
-          </div>
-          <div className="mb-5">
-            <Notification />
           </div>
         </div>
       </Default>

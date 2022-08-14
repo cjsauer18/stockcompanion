@@ -414,8 +414,7 @@ function ApexChart(props) {
             height: 100,
             width: 100,
             position: "absolute",
-            top: "60%",
-            left: "47%",
+            top: "45%",
             zIndex: 2,
           }}
           src={require("./loader.gif")}

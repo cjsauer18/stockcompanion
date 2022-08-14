@@ -9,15 +9,11 @@
 
 .alert-btn {
   border: none;
-  /* height: 40px;
-  width: 40px;
-  border-radius: 50%; */
-  
-  /* position: relative;
-  left: 50%; */
+  position: relative;
+  left: 50%;
   background-color: rgb(161, 159, 189);
 }
-.alert-btn:hover {
+.alert-btn :hover {
   transition: 0.5s;
   background-color: rgb(48, 47, 65);
 }

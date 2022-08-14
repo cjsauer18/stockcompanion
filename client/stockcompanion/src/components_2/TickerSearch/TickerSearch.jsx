@@ -45,8 +45,8 @@ const TickerSearch = (props) => {
         </Button>
       </Form>
       {tickerData && tickerData.length !== 0 && (
-        <Card className="p-3 shadow-sm ticker-search__card">
-          <ul className="ticker-search__list">
+        <Card className="p-3 mb-4 shadow-sm ticker-search__card">
+          <ul style={{ listStyle: "none" }} className="ticker-search__list">
             {tickerData.map((ticker) => (
               <li
                 className="d-flex justify-content-between ticker-search__list-item"

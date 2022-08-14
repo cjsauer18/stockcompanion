@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, Fragment } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import "./Notification.css";
 import NotificationTile from "./NotificationTile";
@@ -19,12 +19,9 @@ function contains(obj, alerts) {
   return false;
 }
 
-function Notification({ handleClearDashboard }) {
+function Notification(props) {
   const [alerts, setAlerts] = useState([]);
-  const [interval, setInterval] = useState({
-    name: "1 min",
-    interval: 60,
-  });
+  const [interval, setInterval] = useState(false);
 
   useEffect(() => {
     //fetches the most recent alerts to load back into state.
@@ -35,13 +32,13 @@ function Notification({ handleClearDashboard }) {
   const handleDelete = (alert) => {
     const index = alerts.indexOf(alert);
     if (alerts.length === 1) {
-      localStorage.removeItem("alerts");
       setAlerts([]);
+      localStorage.removeItem("alerts");
     } else {
       const newAlerts = new Array(...alerts);
       newAlerts.splice(index, 1);
-      localStorage.setItem("alerts", JSON.stringify(newAlerts));
       setAlerts(newAlerts);
+      localStorage.setItem("alerts", JSON.stringify(newAlerts));
     }
   };
 
@@ -76,7 +73,7 @@ function Notification({ handleClearDashboard }) {
     //setIsLoading(true);
     //   console.log("lets see..", formattedData[0].y[0]);
     //setIsLoadingFetch(true)
-    console.log("fetching:", formattedData);
+    console.log("lets see..", formattedData);
 
     return Math.floor(formattedData[formattedData.length - 1].y[0]);
   };
@@ -141,55 +138,47 @@ function Notification({ handleClearDashboard }) {
   ];
 
   return (
-    <Fragment>
-      <p className="font-12 text-white mb-2">Notifications</p>
-      <Form className="interval-change-form">
-        <div className="d-flex justify-content-between align-items-center">
-          <Form.Select
-            onChange={(e) => setInterval(JSON.parse(e.target.value))}
-            className="me-2"
-          >
-            {intervals.map((interval, i) => {
-              return (
-                <option
-                  value={JSON.stringify(interval)}
-                  key={i}
-                  className="interval-btn me-2 my-3"
-                >
-                  {interval.name}
-                </option>
-              );
-            })}
-          </Form.Select>
-
+    <div>
+      <div>
+        <Dashboard />
+        <Form className="interval-change-form">
+          {intervals.map((interval, i) => {
+            return (
+              <Button
+                key={i}
+                onClick={() => setInterval(interval)}
+                className="interval-btn"
+              >
+                {interval.name}
+              </Button>
+            );
+          })}
           <Button
             className="set-notification"
             onClick={() => handleSetNotification(interval)}
           >
-            Set
+            Set Notification
           </Button>
+        </Form>
+
+        <div className="active-notification-pannel">
+          {alerts.length === 0 ? (
+            <div>No notifications set</div>
+          ) : (
+            alerts.map((alert, i) => (
+              <NotificationTile
+                key={i}
+                isActive={alert.isActive}
+                toggleActive={toggleActive}
+                alert={alert}
+                handleDelete={handleDelete}
+              />
+              // <button></button> toggle active, maybe remove button here
+            ))
+          )}
         </div>
-      </Form>
-
-      <Dashboard />
-
-      <div className="active-notification-pannel mb-3">
-        {alerts.length === 0 ? (
-          <div className="text-white">No notifications set</div>
-        ) : (
-          alerts.map((alert, i) => (
-            <NotificationTile
-              key={i}
-              isActive={alert.isActive}
-              toggleActive={toggleActive}
-              alert={alert}
-              handleDelete={handleDelete}
-            />
-            // <button></button> toggle active, maybe remove button here
-          ))
-        )}
       </div>
-    </Fragment>
+    </div>
   );
 }
 

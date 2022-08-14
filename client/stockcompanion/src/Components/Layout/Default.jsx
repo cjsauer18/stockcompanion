@@ -1,20 +1,16 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Sidebar from "../Header/Sidebar";
 import Nav from "../Nav";
 import "./Default.css";
 
 const Default = (props) => {
   return (
-    <div className="main-container">
-      <Nav />
-      <div>
-        <div>
-          {" "}
-          <Sidebar />{" "}
-        </div>
-        <div className="container main-content">{props.children}</div>
-      </div>
-    </div>
+    <Fragment>
+      {/* <div>
+        <Sidebar />
+      </div> */}
+      <div className="container">{props.children}</div>
+    </Fragment>
   );
 };
 

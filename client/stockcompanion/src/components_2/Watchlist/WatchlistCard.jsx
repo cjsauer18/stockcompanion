@@ -22,6 +22,7 @@ const WatchlistCard = () => {
 
       const data = await responseParse.json();
 
+      console.log(data);
       var tickerList = JSON.parse(tickersWatchList);
       // console.log('tickerList',tickerList)
 
@@ -71,15 +72,13 @@ const WatchlistCard = () => {
         });
       });
 
+      console.log("_trades", _trades);
+
       setTrades(_trades);
     } catch (error) {
       console.log("E", error);
     }
   };
-
-  // const removeTrades = (i) => {
-    
-  // };
 
   // const isTesla = localStorage.getItem("Tesla");
 
@@ -140,7 +139,6 @@ const WatchlistCard = () => {
               <td>{trade.low}</td>
               {/* <td
                 className="text-primary"
-                onClick={() => removeTrades(i)}
                 role={"button"}
               >
                 Remove

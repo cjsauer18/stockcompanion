@@ -9,8 +9,6 @@ import {
   BsBookmarkMinusFill,
 } from "react-icons/bs";
 
-import { IoMdClose } from "react-icons/io";
-
 import "./Dashboard.css";
 
 function contains(obj, list) {
@@ -22,6 +20,7 @@ function contains(obj, list) {
   }
   return -1;
 }
+
 //This component relies on alerts retreived and parsed from local storage. It reads the current set alerts handled and configured within notifications, and makes the appropriate calculations.
 function Dashboard() {
   const [state, setState] = useState([]); //handles the state of what is presented.
@@ -85,7 +84,6 @@ function Dashboard() {
     console.log("alert", alert);
     console.log(state);
   };
-
   const handleClearDashboard = () => {
     const newState = [];
     for (let i = 0; i < state.length; ++i) {
@@ -94,7 +92,7 @@ function Dashboard() {
       }
     }
     localStorage.setItem("alert_history", JSON.stringify(newState));
-    setState(state);
+    setState(newState);
   };
 
   const handleClear = (alert) => {
@@ -158,8 +156,6 @@ function Dashboard() {
             alerts[i].startPrice = await fetchPrice(alerts[i].stock);
             localStorage.setItem("alerts", JSON.stringify(alerts)); //update alerts in local storage for immediate reference.
 
-            const state =
-              JSON.parse(localStorage.getItem("alert_history")) || [];
             console.log("UPDATED PRICE, UPDATED START TIME", alerts[i]);
             console.log(
               "updating dashboard state. PREV",
@@ -167,19 +163,21 @@ function Dashboard() {
               "Add:",
               fireAlert
             );
+            const newState = new Array(...state);
+
             if (state.length !== 0) {
-              const index = contains(fireAlert, state);
+              const index = contains(fireAlert, newState);
               if (index === -1) {
-                state.push(fireAlert);
+                newState.push(fireAlert);
               } else {
-                state[index] = fireAlert;
+                newState[index] = fireAlert;
               }
             } else {
-              state.push(fireAlert);
+              newState.push(fireAlert);
             }
-            localStorage.setItem("alert_history", JSON.stringify(state));
-            console.log("Updated State", state); //update for notification refrence? For full circle?
-            setState(state);
+            localStorage.setItem("alert_history", JSON.stringify(newState));
+            console.log("Updated State", newState); //update for notification refrence? For full circle?
+            setState(newState);
           }
         }
       }
@@ -193,22 +191,19 @@ function Dashboard() {
         {state.length !== 0 ? (
           state.map((alert, i) => {
             return (
-              <div
-                key={i}
-                className="alert-container d-flex justify-content-between align-items-center"
-              >
-                <div>{alert.name}</div>
-
-                <div>
-                  <span style={{ paddingRight: 17 }}>{alert.desc}</span>
-                  <BsChevronDoubleRight size={15} />
-                  <span style={{ padding: 17 }}>{alert.percentChange}%</span>
-                </div>
-
-                <IoMdClose
-                  className="pointer"
+              <div key={i} className="alert-container">
+                <li className="col-1">{alert.name}</li>
+                <li className="col-1">{alert.interval}</li>
+                <li className="col-2">
+                  <BsChevronDoubleRight size={30} />
+                  <h3>{alert.percentChange}%</h3>
+                </li>
+                <Button
                   onClick={() => handleClear(alert)}
-                />
+                  className="alert-clear"
+                >
+                  Clear
+                </Button>
               </div>
             );
           })
@@ -219,12 +214,12 @@ function Dashboard() {
 
       <UnderscoreSpring />
       <button
-        className=" btn btn-secondary w-100 mb-3 mt-3 font-12"
+        className="clear-all"
         onClick={() => {
           handleClearDashboard();
         }}
       >
-        Clear Dashboard
+        Clear dashboard
       </button>
     </div>
   );
