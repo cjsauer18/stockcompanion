@@ -88,13 +88,8 @@ function Dashboard() {
 
   const handleClearDashboard = () => {
     const newState = [];
-    for (let i = 0; i < state.length; ++i) {
-      if (state[i].bookmarked === true) {
-        newState.push(state[i]);
-      }
-    }
     localStorage.setItem("alert_history", JSON.stringify(newState));
-    setState(state);
+    setState(newState);
   };
 
   const handleClear = (alert) => {
@@ -217,7 +212,6 @@ function Dashboard() {
         )}
       </div>
 
-      <UnderscoreSpring />
       <button
         className=" btn btn-secondary w-100 mb-3 mt-3 font-12"
         onClick={() => {
