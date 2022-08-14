@@ -1,5 +1,5 @@
 import "./styles.css";
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
@@ -12,11 +12,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   return (
     <BrowserRouter>
-      {/* <Nav /> */}
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/old-home" element={<HomePage />} /> */}
         <Route path="/watchlist" element={<WatchListPage />} />
       </Routes>
     </BrowserRouter>

@@ -1,19 +1,10 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { getOverlayDirection } from "react-bootstrap/esm/helpers";
 import { IoMdClose } from "react-icons/io";
 import { TbToggleRight, TbToggleLeft } from "react-icons/tb";
 
-//if the notificaiton is activated, background is green. If not activatred, it is white
-//if the notivaion is ACTIVE, the background is higher shade of green, if inactive, it is shaded gray.
-
-// (1) display the notification title.
-// (2) show up on screen. (run the calculations)
-
 function NotificationTile({ isActive, toggleActive, alert, handleDelete }) {
-  // const [alert, setAlert] = useState(alert);
-
   return (
     <Card
       className="notification-tile"
@@ -44,8 +35,6 @@ function NotificationTile({ isActive, toggleActive, alert, handleDelete }) {
             onClick={() => handleDelete(alert)}
             size={22}
           />
-          {/* <Button onClick={() => toggleActive(alert)} className="me-2">Toggle</Button>
-          <Button variant="danger" onClick={() => handleDelete(alert)}>Remove</Button> */}
         </div>
       </Card.Body>
     </Card>

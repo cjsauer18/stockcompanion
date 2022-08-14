@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { formatData } from "../../utility/loadChartData";
-import UnderscoreSpring from "./UnderscoreSpring";
-import Button from "react-bootstrap/Button";
 
-import {
-  BsChevronDoubleRight,
-  BsBookmarkPlusFill,
-  BsBookmarkMinusFill,
-} from "react-icons/bs";
+import { BsChevronDoubleRight } from "react-icons/bs";
 
 import { IoMdClose } from "react-icons/io";
 
@@ -25,50 +19,6 @@ function contains(obj, list) {
 //This component relies on alerts retreived and parsed from local storage. It reads the current set alerts handled and configured within notifications, and makes the appropriate calculations.
 function Dashboard() {
   const [state, setState] = useState([]); //handles the state of what is presented.
-
-  // useEffect(() => {
-  //   const alert = [
-  //     {
-  //       stock: "L",
-  //       interval: 60,
-  //       desc: "1 min",
-  //       isActive: true,
-  //       id: 0,
-  //       startPrice: 58,
-  //       startTime: 1660318973,
-  //     },
-  //     {
-  //       stock: "L",
-  //       interval: 60,
-  //       desc: "1 min",
-  //       isActive: true,
-  //       id: 0,
-  //       startPrice: 58,
-  //       startTime: 1660318973,
-  //     },
-  //     {
-  //       stock: "L",
-  //       interval: 60,
-  //       desc: "1 min",
-  //       isActive: true,
-  //       id: 0,
-  //       startPrice: 58,
-  //       startTime: 1660318973,
-  //     },
-  //     {
-  //       stock: "L",
-  //       interval: 60,
-  //       desc: "1 min",
-  //       isActive: true,
-  //       id: 0,
-  //       startPrice: 58,
-  //       startTime: 1660318973,
-  //     },
-  //   ];
-  //   localStorage.setItem("alert_history", JSON.stringify(alert));
-  //   console.log("rerendering dashboard");
-  //   setState(alert);
-  // }, []);
 
   useEffect(() => {
     const alertHistory =

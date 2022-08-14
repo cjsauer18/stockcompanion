@@ -4,11 +4,6 @@ import ApexChart from "../../Chart/ApexChart";
 import Default from "../../Components/Layout/Default";
 import Stock from "../../Components/stock";
 import Notification from "../../Components/Notifications/Notification";
-import Dashboard from "../../Components/Notifications/Dashboard";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
-import { BiSearch } from "react-icons/bi";
 
 import "./Home.css";
 import TickerSearch from "../../Components/TickerSearch/TickerSearch";
@@ -75,7 +70,6 @@ const Home = () => {
       var tickersWatchList =
         JSON.parse(localStorage.getItem("tickersWatchList")) || [];
 
-      // tickersWatchList.push(storedTicker);
       const indexOfTicker = tickersWatchList.indexOf(storedTicker);
       if (indexOfTicker !== -1) {
         tickersWatchList.splice(indexOfTicker, 1);
@@ -97,7 +91,7 @@ const Home = () => {
 
   useEffect(() => {
     stock.getData();
-    console.log("hey");
+    console.log("[HOME: DEBUG] Retreiving Data");
   });
 
   useEffect(() => {
@@ -188,9 +182,6 @@ const Home = () => {
                     ? "Add To Watchlist"
                     : "Remove from Watchlist"}
                 </button>
-                {/* <button className="btn btn-secondary">Set Notification</button> */}
-                {/* MAKESHIFT passing in the function to change the state of the parent component as notification settings are stored here BUT COULD BE STORED IN A SERVER AS DATA!!!!!!  */}
-                {/* removing and adding notifications for specific stocks are handled in the same component: <Notification/>  */}
               </div>
             </div>
           </div>
