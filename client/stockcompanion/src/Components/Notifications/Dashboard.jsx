@@ -43,10 +43,18 @@ function Dashboard() {
   };
 
   const handleClear = (alert) => {
-    const newState = state.splice(alert, 1);
+    const newState = new Array();
+    for (let i = 0; i < state.length; i++) {
+      if (state[i].name == alert.name && state[i].interval == alert.interval) {
+        continue;
+      } else {
+        newState.push(state[i]);
+      }
+    }
     setState(newState);
     localStorage.setItem("alert_history", JSON.stringify(newState));
   };
+
   //This interval may be off for weekends, or after 5PM EST when the stock market closes. Should implement a check for this to bypass any redundant fetching.
   const fetchPrice = async (stock) => {
     const url = `http://localhost:5000/members?ticker=${stock}&start=${Math.floor(
@@ -94,9 +102,9 @@ function Dashboard() {
             const fireAlert = {
               name: alerts[i].stock,
               interval: alerts[i].interval,
+              desc: alerts[i].desc,
               currentTime: Math.floor(Date.now() / 1000),
               percentChange: percentChange,
-              bookmarked: false,
             };
 
             alerts[i].startTime = Math.floor(Date.now() / 1000); //this might call a rerender for notifications, ebcau

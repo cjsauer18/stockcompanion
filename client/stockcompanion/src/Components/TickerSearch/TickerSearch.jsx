@@ -15,8 +15,10 @@ const TickerSearch = (props) => {
         `http://localhost:5000/search?keyword=${e.target.value}`
       );
       const response = await SEARCH_API.json();
+      console.log("[DEBUG]: ", response.data);
       setTickerData(response.data);
     } catch (error) {
+      //setTickerData([]); //Default
       console.log(error);
     }
   };

@@ -19,30 +19,6 @@ const Home = () => {
     {
       name: "30M",
     },
-    {
-      name: "1HR",
-    },
-    {
-      name: "1WK",
-    },
-  ];
-
-  const ranges = [
-    {
-      name: "1D",
-    },
-    {
-      name: "1WK",
-    },
-    {
-      name: "1M",
-    },
-    {
-      name: "6M",
-    },
-    {
-      name: "1YR",
-    },
   ];
 
   const [isInWatchList, setIsInWatchList] = useState(false);
@@ -137,32 +113,6 @@ const Home = () => {
                         key={i}
                       >
                         {interval.name}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="date-range">
-                  <p className="mb-1 font-12 text-white">Date Range</p>
-                  <div className="mb-3">
-                    {ranges.map((range, i) => (
-                      <span
-                        className="range"
-                        onClick={() => {
-                          handleRange(range.name.toLocaleLowerCase());
-                        }}
-                        style={{
-                          background:
-                            changeRange === range.name.toLocaleLowerCase()
-                              ? "#0a063e"
-                              : "white",
-                          color:
-                            changeRange === range.name.toLocaleLowerCase()
-                              ? "white"
-                              : "#0a063e",
-                        }}
-                        key={i}
-                      >
-                        {range.name}
                       </span>
                     ))}
                   </div>
